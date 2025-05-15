@@ -1,0 +1,113 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import Chart from "chart.js/auto";
+
+export default function PerformanceChart() {
+  const chartRef = useRef<HTMLCanvasElement>(null);
+  const chartInstance = useRef<Chart | null>(null);
+
+  useEffect(() => {
+    // Destroy existing chart if it exists
+    if (chartInstance.current) {
+      chartInstance.current.destroy();
+    }
+
+    const ctx = chartRef.current?.getContext("2d");
+    
+    if (ctx) {
+      // Mock data
+      const views = [2150, 2420, 2250, 2800, 3200, 2950, 3500, 4100, 3800, 4300, 4500, 4800];
+      const users = [120, 132, 121, 154, 178, 195, 197, 205, 220, 250, 275, 290];
+      
+      // Create the chart
+      chartInstance.current = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+          ],
+          datasets: [
+            {
+              label: "Page Views",
+              data: views,
+              borderColor: "#3b82f6", // blue-500
+              backgroundColor: "rgba(59, 130, 246, 0.1)",
+              fill: true,
+              tension: 0.4,
+              borderWidth: 2,
+              pointBackgroundColor: "#3b82f6",
+              pointRadius: 3,
+            },
+            {
+              label: "Active Users",
+              data: users,
+              borderColor: "#10b981", // emerald-500
+              backgroundColor: "rgba(16, 185, 129, 0.1)",
+              fill: true,
+              tension: 0.4,
+              borderWidth: 2,
+              pointBackgroundColor: "#10b981",
+              pointRadius: 3,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "top" as const,
+              labels: {
+                usePointStyle: true,
+              },
+            },
+            tooltip: {
+              mode: "index" as const,
+              intersect: false,
+            },
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              beginAtZero: true,
+              ticks: {
+                // Customize the y-axis labels to show K (thousands) format
+                callback: function(value) {
+                  const numValue = Number(value);
+                  return numValue >= 1000 ? (numValue/1000) + 'K' : value;
+                },
+              },
+              grid: {
+                display: true, // Changed from drawBorder: false to display: true
+              },
+            },
+          },
+          interaction: {
+            mode: "nearest" as const,
+            axis: "x" as const,
+            intersect: false,
+          },
+        },
+      });
+    }
+
+    // Cleanup on unmount
+    return () => {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+    };
+  }, []);
+
+  return (
+    <div className="h-72">
+      <canvas ref={chartRef} />
+    </div>
+  );
+}

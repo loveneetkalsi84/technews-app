@@ -1,103 +1,244 @@
 import Image from "next/image";
+import Link from "next/link";
+import ArticleCard from "./components/articles/ArticleCard";
+
+// This is a mock data for demonstration purposes
+// In production, this would be fetched from the database
+// Define the article type to match ArticleCard's expected props
+interface MockArticle {
+  title: string;
+  slug: string;
+  excerpt: string;
+  coverImage: string;
+  publishedAt: string | Date;
+  author: {
+    name: string;
+    image?: string;
+  };
+  viewCount?: number;
+  category?: {
+    name: string;
+    slug: string;
+  };
+  tags?: string[];
+  isReview?: boolean;
+  rating?: number;
+}
+
+const mockArticles: MockArticle[] = [
+  {
+    title: "Apple Unveils New MacBook Pro with M3 Chip: A Revolutionary Leap in Performance",
+    slug: "apple-unveils-new-macbook-pro-m3-chip",
+    excerpt: "The new MacBook Pro featuring Apple's M3 chip offers unprecedented performance and battery life, setting new standards for professional laptops.",
+    coverImage: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80",
+    publishedAt: new Date(),
+    author: {
+      name: "John Doe",
+      image: "https://randomuser.me/api/portraits/men/23.jpg",
+    },
+    viewCount: 1254,
+    category: {
+      name: "News",
+      slug: "news",
+    },
+    tags: ["Apple", "MacBook", "M3 Chip"],
+  },
+  {
+    title: "Samsung Galaxy S23 Ultra Review: The Ultimate Android Flagship",
+    slug: "samsung-galaxy-s23-ultra-review",
+    excerpt: "The Samsung Galaxy S23 Ultra pushes smartphone photography to new heights with its 200MP camera and impressive low-light performance.",
+    coverImage: "https://images.unsplash.com/photo-1610945265064-0e34e5d357bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    publishedAt: new Date(Date.now() - 86400000), // 1 day ago
+    author: {
+      name: "Jane Smith",
+      image: "https://randomuser.me/api/portraits/women/44.jpg",
+    },
+    viewCount: 3782,
+    category: {
+      name: "Reviews",
+      slug: "reviews",
+    },
+    tags: ["Samsung", "Galaxy", "Smartphone"],
+  },
+  {
+    title: "NVIDIA Announces RTX 5090: 8K Gaming Finally Becomes Mainstream",
+    slug: "nvidia-announces-rtx-5090",
+    excerpt: "NVIDIA's latest flagship GPU promises to deliver 8K gaming at 60fps with full ray tracing, setting a new standard for gaming performance.",
+    coverImage: "https://images.unsplash.com/photo-1591488320212-4d092df8884d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    publishedAt: new Date(Date.now() - 172800000), // 2 days ago
+    author: {
+      name: "Mike Johnson",
+      image: "https://randomuser.me/api/portraits/men/32.jpg",
+    },
+    viewCount: 2534,
+    category: {
+      name: "Gaming",
+      slug: "gaming",
+    },
+    tags: ["NVIDIA", "RTX", "GPU"],
+  },
+  {
+    title: "OpenAI Introduces GPT-5: A New Era of Artificial Intelligence",
+    slug: "openai-introduces-gpt5",
+    excerpt: "OpenAI's latest language model demonstrates unprecedented reasoning capabilities and better understanding of complex instructions.",
+    coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad09f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
+    publishedAt: new Date(Date.now() - 259200000), // 3 days ago
+    author: {
+      name: "Sarah Wilson",
+      image: "https://randomuser.me/api/portraits/women/67.jpg",
+    },
+    viewCount: 5921,
+    category: {
+      name: "AI",
+      slug: "ai",
+    },
+    tags: ["OpenAI", "GPT-5", "AI"],
+  },
+  {
+    title: "Dell XPS 13 (2025) Review: Perfecting the Ultrabook Formula",
+    slug: "dell-xps-13-2025-review",
+    excerpt: "Dell's latest XPS 13 refines an already excellent design with improved performance, battery life, and display quality.",
+    coverImage: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    publishedAt: new Date(Date.now() - 345600000), // 4 days ago
+    author: {
+      name: "Robert Brown",
+      image: "https://randomuser.me/api/portraits/men/91.jpg",
+    },
+    viewCount: 2187,
+    category: {
+      name: "Reviews",
+      slug: "reviews",
+    },
+    tags: ["Dell", "XPS", "Laptop"],
+  },
+  {
+    title: "Microsoft Announces Windows 12: A Complete Redesign",
+    slug: "microsoft-announces-windows-12",
+    excerpt: "Microsoft unveils Windows 12 with a fresh design language, improved performance, and deeper AI integration across the operating system.",
+    coverImage: "https://images.unsplash.com/photo-1624571409108-e9a41746af53?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+    publishedAt: new Date(Date.now() - 432000000), // 5 days ago
+    author: {
+      name: "Linda Davis",
+      image: "https://randomuser.me/api/portraits/women/22.jpg",
+    },
+    viewCount: 4321,
+    category: {
+      name: "News",
+      slug: "news",
+    },
+    tags: ["Microsoft", "Windows", "Operating System"],
+  },
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  // Featured article is the first one in the list
+  const featuredArticle = mockArticles[0];
+  // Rest of the articles
+  const regularArticles = mockArticles.slice(1);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="container mx-auto px-4 py-8">
+      {/* Hero Section with Featured Article */}
+      <section className="mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          {/* Featured Article */}
+          <div className="lg:col-span-3">
+            <ArticleCard article={featuredArticle} featured={true} />
+          </div>
+
+          {/* AdSense Ad - Vertical Banner */}
+          <div className="lg:col-span-2 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden flex flex-col justify-center items-center min-h-[400px]">
+            <div className="text-center p-4">
+              <div className="text-gray-400 mb-2 text-sm">ADVERTISEMENT</div>
+              {/* This would be replaced by actual AdSense code */}
+              <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 p-6 h-full w-full rounded-lg flex items-center justify-center">
+                <span className="text-gray-500 dark:text-gray-400">Google AdSense Ad</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Latest News Section */}
+      <section className="mb-12">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Latest News</h2>
+          <Link
+            href="/news"
+            className="text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            View All
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {regularArticles.slice(0, 3).map((article, index) => (
+            <ArticleCard key={index} article={article} />
+          ))}
+        </div>
+      </section>
+
+      {/* AdSense Ad - Horizontal Banner */}
+      <section className="mb-12 bg-gray-100 dark:bg-gray-800 rounded-xl p-4">
+        <div className="text-center">
+          <div className="text-gray-400 mb-2 text-sm">ADVERTISEMENT</div>
+          {/* This would be replaced by actual AdSense code */}
+          <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 p-6 h-28 w-full rounded-lg flex items-center justify-center">
+            <span className="text-gray-500 dark:text-gray-400">Google AdSense Ad</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Reviews Section */}
+      <section className="mb-12">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Featured Reviews</h2>
+          <Link
+            href="/reviews"
+            className="text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            View All
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {regularArticles.slice(3, 6).map((article, index) => (
+            <ArticleCard key={index} article={article} />
+          ))}
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="mb-12 bg-blue-600 text-white rounded-xl overflow-hidden">
+        <div className="flex flex-col md:flex-row">
+          <div className="p-8 md:w-2/3">
+            <h2 className="text-2xl font-bold mb-4">Stay Updated with TechNews</h2>
+            <p className="mb-6">
+              Subscribe to our newsletter and never miss the latest tech news, reviews, and exclusive content.
+            </p>
+            <form className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                placeholder="Your email address"
+                className="flex-grow px-4 py-3 rounded-md text-gray-900 focus:outline-none"
+                required
+              />
+              <button
+                type="submit"
+                className="px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-md"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+          <div className="hidden md:block md:w-1/3 relative">
+            <Image
+              src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+              alt="Newsletter"
+              className="object-cover h-full"
+              fill={true}
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

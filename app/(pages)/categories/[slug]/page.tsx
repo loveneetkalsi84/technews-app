@@ -25,21 +25,21 @@ async function getCategoryData(slug: string) {
       slug: "smartphones",
       description: "The latest news, reviews, and insights about smartphones and mobile technology.",
       articleCount: 47,
-      image: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80",
     },
     laptops: {
       name: "Laptops",
       slug: "laptops",
       description: "Comprehensive reviews and news about the latest laptops, notebooks, and mobile computing devices.",
       articleCount: 32,
-      image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
+      image: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80",
     },
     gaming: {
       name: "Gaming",
       slug: "gaming",
       description: "Stay updated on the gaming industry with reviews of the latest games, consoles, and gaming hardware.",
       articleCount: 28,
-      image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      image: "https://images.unsplash.com/photo-1614294149010-950b698f72c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
     },
   };
   
@@ -239,7 +239,8 @@ async function getCategoryArticles(slug: string) {
 
 // Generate metadata for this page
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const category = await getCategoryData(params.slug);
+  const { slug } = params;
+  const category = await getCategoryData(slug);
   
   if (!category) {
     return {
@@ -303,14 +304,17 @@ const brands = {
 };
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const category = await getCategoryData(params.slug);
+  // Extract slug from params to avoid Next.js warnings about synchronous access
+  const { slug } = params;
+  
+  const category = await getCategoryData(slug);
   
   if (!category) {
     notFound();
   }
   
-  const articles = await getCategoryArticles(params.slug);
-  const brandFilters = brands[params.slug as keyof typeof brands] || [];
+  const articles = await getCategoryArticles(slug);
+  const brandFilters = brands[slug as keyof typeof brands] || [];
   
   return (
     <div className="container mx-auto px-4 py-8">
@@ -408,11 +412,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <div className="my-8">
             <AdPlaceholder type="native" />
           </div>
-          
-          {/* Pagination */}
+            {/* Pagination */}
           {articles.length > 0 && (
             <div className="mt-12">
-              <Pagination currentPage={1} totalPages={3} baseUrl={`/categories/${params.slug}`} />
+              <Pagination currentPage={1} totalPages={3} baseUrl={`/categories/${slug}`} />
             </div>
           )}
         </div>

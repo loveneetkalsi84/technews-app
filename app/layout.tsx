@@ -35,10 +35,21 @@ export default function RootLayout({
         {/* Google AdSense Script */}
         <Script 
           async 
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-xxxxxxxxxxxxxxxx"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456"
           strategy="afterInteractive"
           crossOrigin="anonymous"
         />
+        
+        {/* Google AdSense Auto Ads - Optional */}
+        <Script id="adsense-auto-ads" strategy="afterInteractive">
+          {`
+            (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-1234567890123456",
+              enable_page_level_ads: true,
+              overlays: {bottom: true}
+            });
+          `}
+        </Script>
         
         {/* Google Analytics Script */}
         <Script 

@@ -41,14 +41,22 @@ export interface ScrapedProduct {
 }
 
 const ArticleSchema: Schema = new Schema(
-  {
-    title: { type: String, required: true, trim: true },
+  {    title: { type: String, required: true, trim: true },
     slug: { type: String, required: true, unique: true, trim: true },
     content: { type: String, required: true },
-    excerpt: { type: String, required: true },
-    coverImage: { type: String, required: true },
-    author: { type: Schema.Types.ObjectId, ref: 'User' },
-    category: { type: Schema.Types.ObjectId, ref: 'Category' },
+    excerpt: { type: String, default: "" }, // Make it optional with default
+    coverImage: { type: String, default: "https://via.placeholder.com/1200x630?text=Default+Image" }, // Make it optional with default
+    author: { 
+      type: Schema.Types.Mixed, // Allow both ObjectId and String
+      ref: 'User',
+      required: false, // Make it optional
+      default: "admin"
+    },
+    category: { 
+      type: Schema.Types.Mixed, // Allow both ObjectId and String
+      ref: 'Category',
+      required: false 
+    },
     tags: [{ type: String, trim: true }],
     metaDescription: { type: String, trim: true },
     metaKeywords: [{ type: String, trim: true }],

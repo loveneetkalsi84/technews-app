@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ArticleCard from "./components/articles/ArticleCard";
+import AdPlaceholder from "./components/ads/AdPlaceholder";
 
 // This is a mock data for demonstration purposes
 // In production, this would be fetched from the database
@@ -147,14 +148,8 @@ export default function Home() {
           </div>
 
           {/* AdSense Ad - Vertical Banner */}
-          <div className="lg:col-span-2 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden flex flex-col justify-center items-center min-h-[400px]">
-            <div className="text-center p-4">
-              <div className="text-gray-400 mb-2 text-sm">ADVERTISEMENT</div>
-              {/* This would be replaced by actual AdSense code */}
-              <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 p-6 h-full w-full rounded-lg flex items-center justify-center">
-                <span className="text-gray-500 dark:text-gray-400">Google AdSense Ad</span>
-              </div>
-            </div>
+          <div className="lg:col-span-2">
+            <AdPlaceholder type="sidebar" />
           </div>
         </div>
       </section>
@@ -178,14 +173,8 @@ export default function Home() {
       </section>
 
       {/* AdSense Ad - Horizontal Banner */}
-      <section className="mb-12 bg-gray-100 dark:bg-gray-800 rounded-xl p-4">
-        <div className="text-center">
-          <div className="text-gray-400 mb-2 text-sm">ADVERTISEMENT</div>
-          {/* This would be replaced by actual AdSense code */}
-          <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 p-6 h-28 w-full rounded-lg flex items-center justify-center">
-            <span className="text-gray-500 dark:text-gray-400">Google AdSense Ad</span>
-          </div>
-        </div>
+      <section className="mb-12">
+        <AdPlaceholder type="banner" />
       </section>
 
       {/* Featured Reviews Section */}

@@ -14,7 +14,7 @@ import {
   FaGlobe,
   FaLink
 } from "react-icons/fa";
-import DashboardSidebar from "@/app/components/dashboard/DashboardSidebar";
+import AdminWrapper from "@/app/components/dashboard/AdminWrapper";
 
 export default function ImportContentPage() {
   const { data: session, status } = useSession();
@@ -127,14 +127,8 @@ export default function ImportContentPage() {
       </div>
     );
   }
-
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Sidebar */}
-      <DashboardSidebar />
-
-      {/* Main content */}
-      <div className="flex-1 md:ml-72 p-6 md:p-8 overflow-y-auto transition-all duration-300 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent">
+    <AdminWrapper>
         <div className="mx-auto max-w-7xl">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
@@ -351,12 +345,10 @@ export default function ImportContentPage() {
               </li>
               <li className="flex items-start">
                 <span className="inline-flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-800/60 h-5 w-5 text-blue-600 dark:text-blue-400 mr-2 mt-0.5">4</span>
-                <span>Duplicate articles (with the same URL) will not be imported again.</span>
-              </li>
+                <span>Duplicate articles (with the same URL) will not be imported again.</span>              </li>
             </ul>
           </div>
         </div>
-      </div>
-    </div>
+    </AdminWrapper>
   );
 }

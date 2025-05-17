@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaPlus, FaFilter, FaSearch, FaFileExport, FaEllipsisH } from "react-icons/fa";
-import DashboardSidebar from "@/app/components/dashboard/DashboardSidebar";
+import AdminWrapper from "@/app/components/dashboard/AdminWrapper";
 import ArticlesTable from "@/app/components/dashboard/ArticlesTable";
 
 // Types
@@ -157,14 +157,8 @@ export default function ArticlesManagementPage() {
       </div>
     );
   }
-
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Sidebar */}
-      <DashboardSidebar />
-
-      {/* Main content */}
-      <div className="flex-1 md:ml-72 p-6 md:p-8 overflow-y-auto transition-all duration-300 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent">
+    <AdminWrapper>
         <div className="mx-auto max-w-7xl">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
@@ -243,12 +237,10 @@ export default function ArticlesManagementPage() {
             </div>
           </div>
 
-          {/* Articles Table */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700">
+          {/* Articles Table */}          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700">
             <ArticlesTable articles={filteredArticles} />
           </div>
         </div>
-      </div>
-    </div>
+    </AdminWrapper>
   );
 }

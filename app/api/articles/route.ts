@@ -214,9 +214,9 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
       }
-      
-      throw saveError; // Re-throw for the outer catch block
-    }} catch (error) {
+        throw saveError; // Re-throw for the outer catch block
+    }
+  } catch (error) {
     console.error("Error creating article:", error);
     return NextResponse.json(
       { 

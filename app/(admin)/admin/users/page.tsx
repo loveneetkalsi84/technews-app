@@ -15,7 +15,7 @@ import {
   FaUserSlash,
   FaEllipsisH
 } from "react-icons/fa";
-import DashboardSidebar from "@/app/components/dashboard/DashboardSidebar";
+import AdminWrapper from "@/app/components/dashboard/AdminWrapper";
 import Image from "next/image";
 
 // Types
@@ -223,14 +223,8 @@ export default function UsersManagementPage() {
       </div>
     );
   }
-
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Sidebar */}
-      <DashboardSidebar />
-
-      {/* Main content */}
-      <div className="flex-1 md:ml-72 p-6 md:p-8 overflow-y-auto transition-all duration-300 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent">
+    <AdminWrapper>
         <div className="mx-auto max-w-7xl">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
@@ -446,11 +440,9 @@ export default function UsersManagementPage() {
                     </tr>
                   )}
                 </tbody>
-              </table>
-            </div>
+              </table>            </div>
           </div>
         </div>
-      </div>
-    </div>
+    </AdminWrapper>
   );
 }

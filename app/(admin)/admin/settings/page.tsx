@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -16,7 +16,7 @@ import {
   FaTimes,
   FaInfoCircle
 } from "react-icons/fa";
-import DashboardSidebar from "@/app/components/dashboard/DashboardSidebar";
+import AdminWrapper from "@/app/components/dashboard/AdminWrapper";
 
 export default function SettingsPage() {
   const { data: session, status } = useSession();
@@ -132,14 +132,8 @@ export default function SettingsPage() {
       </div>
     );
   }
-
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Sidebar */}
-      <DashboardSidebar />
-
-      {/* Main content */}
-      <div className="flex-1 md:ml-72 p-6 md:p-8 overflow-y-auto transition-all duration-300 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent">
+    <AdminWrapper>
         <div className="mx-auto max-w-7xl">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
@@ -820,11 +814,9 @@ export default function SettingsPage() {
                   Save Settings
                 </>
               )}
-            </button>
-          </div>
+            </button>          </div>
         </div>
-      </div>
-    </div>
+    </AdminWrapper>
   );
 }
 

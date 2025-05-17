@@ -1,0 +1,190 @@
+"use client";
+
+import { ReactNode, useState } from "react";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import { signOut, useSession } from "next-auth/react";
+import { FaSignOutAlt, FaSun, FaMoon, FaBell, FaSearch, FaUserCircle, FaChevronDown, FaCog } from "react-icons/fa";
+import DashboardSidebar from "@/app/components/dashboard/DashboardSidebar";
+import AdminFooter from "@/app/components/dashboard/AdminFooter";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+
+export default function AdminWrapper({ children }: { children: ReactNode }) {
+  const { theme, setTheme } = useTheme();
+  const { data: session } = useSession();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const pathname = usePathname();
+  
+  return (
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Sidebar */}
+      <DashboardSidebar />
+
+      {/* Main content */}
+      <div className="flex flex-col flex-1 w-full md:ml-72 transition-all duration-300 min-h-screen custom-scrollbar">
+        {/* Admin Header */}
+        <header className="dashboard-header sticky top-0 z-10">
+          <div className="px-6 py-3 flex justify-between items-center bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+            {/* Left side - Brand and search */}
+            <div className="flex items-center space-x-6">
+              <Link href="/" className="flex items-center space-x-2 group">
+                <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 group-hover:from-purple-600 group-hover:to-blue-600 dark:group-hover:from-purple-400 dark:group-hover:to-blue-400 transition-all duration-500">TechNews</span>
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 group-hover:from-purple-600 group-hover:to-blue-600 text-xs px-2 py-1 rounded-md text-white font-semibold shadow-sm transition-all duration-500">Admin</span>
+              </Link>
+              
+              {/* Search bar */}
+              <div className="hidden md:flex relative w-56 lg:w-64 xl:w-72 group">
+                <input
+                  type="text"
+                  placeholder="Search content..."
+                  className="w-full pl-10 pr-4 py-2 text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all duration-300 group-hover:shadow-sm"
+                />
+                <FaSearch className="absolute left-3 top-2.5 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" />
+              </div>
+            </div>
+            
+            {/* Right side - Controls and Quick Actions */}
+            <div className="flex items-center space-x-4">
+              {/* Quick action buttons */}
+              <div className="hidden md:flex space-x-2 mr-2">
+                <Link 
+                  href="/admin/articles/new" 
+                  className="text-xs bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 px-3 py-1.5 rounded-md font-medium hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors hover:shadow-sm flex items-center space-x-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                >
+                  <span className="inline-block w-2 h-2 rounded-full bg-blue-500 animate-pulse-subtle"></span>
+                  <span>New Article</span>
+                </Link>
+                <Link 
+                  href="/admin/import" 
+                  className="text-xs bg-purple-50 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400 px-3 py-1.5 rounded-md font-medium hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors hover:shadow-sm flex items-center space-x-1.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                >
+                  <span className="inline-block w-2 h-2 rounded-full bg-purple-500 animate-pulse-subtle"></span>
+                  <span>Import</span>
+                </Link>
+              </div>
+              
+              <button 
+                className="relative h-9 w-9 flex items-center justify-center text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 bg-gray-100 dark:bg-gray-700 rounded-full transition-all duration-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <FaSun className="text-lg" /> : <FaMoon className="text-lg" />}
+              </button>
+              
+              <button 
+                className="relative h-9 w-9 flex items-center justify-center text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 bg-gray-100 dark:bg-gray-700 rounded-full transition-all duration-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                aria-label="Notifications"
+              >
+                <FaBell className="text-lg" />
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center shadow-sm">3</span>
+              </button>
+              
+              {/* User profile dropdown */}
+              <div className="relative">
+                <button 
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                >
+                  <div className="w-8 h-8 rounded-full overflow-hidden bg-blue-100 dark:bg-gray-700 flex items-center justify-center">
+                    {session?.user?.image ? (
+                      <Image 
+                        src={session.user.image} 
+                        alt={session.user.name || "User"} 
+                        width={32} 
+                        height={32} 
+                        className="object-cover"
+                      />
+                    ) : (
+                      <FaUserCircle className="text-2xl text-blue-500 dark:text-gray-400" />
+                    )}
+                  </div>
+                  <span className="hidden md:block font-medium truncate max-w-[100px]">
+                    {session?.user?.name || "Admin User"}
+                  </span>
+                  <FaChevronDown className={`text-xs opacity-70 transform transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-52 rounded-lg shadow-xl bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 py-1 z-50 border border-gray-200 dark:border-gray-700 overflow-hidden animate-slideUp"
+                       role="menu"
+                       aria-orientation="vertical"
+                       aria-labelledby="user-menu-button">
+                    <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                      <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{session?.user?.name || "Admin User"}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{session?.user?.email || "admin@example.com"}</p>
+                    </div>
+                    
+                    <div className="py-1">
+                      <Link 
+                        href="/admin/profile" 
+                        className="flex px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 items-center group transition-colors"
+                        role="menuitem"
+                      >
+                        <FaUserCircle className="mr-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors" />
+                        <span>Profile</span>
+                      </Link>
+                      <Link 
+                        href="/admin/settings" 
+                        className="flex px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 items-center group transition-colors"
+                        role="menuitem"
+                      >
+                        <FaCog className="mr-2 text-gray-500 dark:text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors" />
+                        <span>Settings</span>
+                      </Link>
+                    </div>
+                    
+                    <div className="border-t border-gray-200 dark:border-gray-700 py-1">
+                      <button
+                        onClick={() => signOut({ callbackUrl: '/login' })}
+                        className="w-full text-left flex px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 font-medium items-center group transition-colors"
+                        role="menuitem"
+                      >
+                        <FaSignOutAlt className="mr-2 group-hover:translate-x-1 transition-transform duration-200" />
+                        <span>Sign out</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+            {/* Breadcrumb navigation */}
+          <div className="px-6 py-2 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-750 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between overflow-x-auto hide-scrollbar shadow-sm">
+            <div className="text-sm text-gray-600 dark:text-gray-300 flex items-center space-x-2">
+              <Link href="/admin" className="font-medium text-blue-600 dark:text-blue-400 hover:underline transition-all flex items-center">
+                <span className="mr-1 text-xs">🏠</span> Admin
+              </Link>
+              <span className="text-gray-400 dark:text-gray-500">/</span>
+              <span className="font-medium">
+                {pathname === '/admin' && 'Dashboard'}
+                {pathname.startsWith('/admin/articles') && 'Articles'}
+                {pathname.startsWith('/admin/drafts') && 'Drafts'}
+                {pathname.startsWith('/admin/categories') && 'Categories'}
+                {pathname.startsWith('/admin/analytics') && 'Analytics'}
+                {pathname.startsWith('/admin/users') && 'Users'}
+                {pathname.startsWith('/admin/comments') && 'Comments'}
+                {pathname.startsWith('/admin/import') && 'Import'}
+                {pathname.startsWith('/admin/settings') && 'Settings'}
+                {pathname.startsWith('/admin/profile') && 'Profile'}
+              </span>
+            </div>            <div className="flex space-x-2">
+              <span className="text-xs bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-600 dark:from-blue-900/30 dark:to-indigo-900/30 dark:text-blue-400 px-3 py-1.5 rounded-full font-medium inline-flex items-center shadow-sm">
+                <span className="hidden md:inline mr-1">Last updated:</span> Today
+              </span>
+            </div>
+          </div>
+        </header>
+          {/* Main content area */}
+        <main className="flex-grow overflow-y-auto custom-scrollbar">
+          {/* Main content */}
+          <div className="animate-fadeIn motion-reduce:animate-none">
+            {children}
+          </div>
+        </main>
+        
+        <AdminFooter />
+      </div>
+    </div>
+  );
+}

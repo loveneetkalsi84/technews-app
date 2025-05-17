@@ -137,7 +137,7 @@ export default function DashboardSidebar() {
 
   return (
     <>
-      {/* Mobile menu button - only visible on small screens */}
+      {/* Mobile menu button */}
       <div id="hamburger-button" className="fixed top-4 left-4 z-30 md:hidden">
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -153,7 +153,7 @@ export default function DashboardSidebar() {
       {/* Sidebar */}
       <div
         id="sidebar"
-        className={`fixed inset-y-0 left-0 z-20 ${isCollapsed ? "w-20" : "w-72"} bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-white transform transition-all duration-300 ease-in-out md:translate-x-0 custom-scrollbar ${
+        className={`fixed inset-y-0 left-0 z-20 ${isCollapsed ? "w-20" : "w-72"} bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-white transform transition-all duration-300 ease-in-out md:translate-x-0 ${
           isMobileMenuOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
         } flex flex-col`}
       >
@@ -212,7 +212,7 @@ export default function DashboardSidebar() {
         </div>
         
         {/* Menu items */}
-        <nav className={`mt-2 ${isCollapsed ? "px-2" : "px-3"} flex-1 overflow-y-auto custom-scrollbar`}>
+        <nav className={`mt-2 ${isCollapsed ? "px-2" : "px-3"} flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 dark:scrollbar-thumb-gray-700/50 scrollbar-track-transparent`}>
           {/* Main section */}
           <div className="space-y-1 mb-4">
             {!isCollapsed && (
@@ -221,7 +221,8 @@ export default function DashboardSidebar() {
                   Main
                 </h3>
               </div>
-            )}            {getSectionMenuItems("main").map((item) => {
+            )}
+            {getSectionMenuItems("main").map((item) => {
               const isActive = pathname === item.path || pathname.startsWith(`${item.path}/`);
               
               return (
@@ -231,7 +232,7 @@ export default function DashboardSidebar() {
                   className={`group flex items-center ${isCollapsed ? "justify-center" : ""} px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
                     isActive
                       ? "bg-white/15 text-white shadow-md backdrop-blur-sm border border-white/15 relative after:absolute after:top-0 after:left-0 after:w-1 after:h-full after:bg-blue-400 after:rounded-l-lg"
-                      : "text-blue-100 hover:bg-blue-700/50 dark:hover:bg-gray-800/70 hover:translate-x-1 hover:shadow-sm"
+                      : "text-blue-100 hover:bg-blue-700/50 dark:hover:bg-gray-800/70 hover:translate-x-1"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -257,7 +258,8 @@ export default function DashboardSidebar() {
                   Content
                 </h3>
               </div>
-            )}            {getSectionMenuItems("content").map((item) => {
+            )}
+            {getSectionMenuItems("content").map((item) => {
               const isActive = pathname === item.path || pathname.startsWith(`${item.path}/`);
               
               return (
@@ -267,7 +269,7 @@ export default function DashboardSidebar() {
                   className={`group flex items-center ${isCollapsed ? "justify-center" : ""} px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
                     isActive
                       ? "bg-white/15 text-white shadow-md backdrop-blur-sm border border-white/15 relative after:absolute after:top-0 after:left-0 after:w-1 after:h-full after:bg-blue-400 after:rounded-l-lg"
-                      : "text-blue-100 hover:bg-blue-700/50 dark:hover:bg-gray-800/70 hover:translate-x-1 hover:shadow-sm"
+                      : "text-blue-100 hover:bg-blue-700/50 dark:hover:bg-gray-800/70 hover:translate-x-1"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -293,7 +295,8 @@ export default function DashboardSidebar() {
                   Management
                 </h3>
               </div>
-            )}            {getSectionMenuItems("management").map((item) => {
+            )}
+            {getSectionMenuItems("management").map((item) => {
               const isActive = pathname === item.path || pathname.startsWith(`${item.path}/`);
               
               return (
@@ -303,7 +306,7 @@ export default function DashboardSidebar() {
                   className={`group flex items-center ${isCollapsed ? "justify-center" : ""} px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
                     isActive
                       ? "bg-white/15 text-white shadow-md backdrop-blur-sm border border-white/15 relative after:absolute after:top-0 after:left-0 after:w-1 after:h-full after:bg-blue-400 after:rounded-l-lg"
-                      : "text-blue-100 hover:bg-blue-700/50 dark:hover:bg-gray-800/70 hover:translate-x-1 hover:shadow-sm"
+                      : "text-blue-100 hover:bg-blue-700/50 dark:hover:bg-gray-800/70 hover:translate-x-1"
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

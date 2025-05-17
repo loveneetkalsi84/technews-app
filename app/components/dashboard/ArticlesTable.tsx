@@ -18,10 +18,13 @@ interface Article {
 
 interface ArticlesTableProps {
   articles: Article[];
+  showPagination?: boolean;
 }
 
-export default function ArticlesTable({ articles }: ArticlesTableProps) {
+export default function ArticlesTable({ articles, showPagination = true }: ArticlesTableProps) {
   const [selectedArticles, setSelectedArticles] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const articlesPerPage = 10;
 
   const handleSelectAll = () => {
     if (selectedArticles.length === articles.length) {
@@ -41,10 +44,20 @@ export default function ArticlesTable({ articles }: ArticlesTableProps) {
 
   const handleBulkDelete = () => {
     // In production, this would call an API to delete selected articles
-    console.log("Deleting articles:", selectedArticles);
-    alert(`Would delete ${selectedArticles.length} articles`);
+    console.log("Deleting articles:", selectedArticles);    alert(`Would delete ${selectedArticles.length} articles`);
     setSelectedArticles([]);
   };
+
+  // Pagination logic
+  const indexOfLastArticle = currentPage * articlesPerPage;
+  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
+  const currentArticles = showPagination ? articles.slice(indexOfFirstArticle, indexOfLastArticle) : articles;
+  const totalPages = Math.ceil(articles.length / articlesPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+  
   return (
     <div className="bg-white dark:bg-gray-800 shadow-md rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
       {/* Bulk actions */}
@@ -111,11 +124,10 @@ export default function ArticlesTable({ articles }: ArticlesTableProps) {
               >
                 Actions
               </th>
-            </tr>
-          </thead>
+            </tr>          </thead>
           <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-            {articles.length > 0 ? (
-              articles.map((article) => (
+            {currentArticles.length > 0 ? (
+              currentArticles.map((article) => (
                 <tr key={article.id} className="hover:bg-gray-50/70 dark:hover:bg-gray-700/70 transition-colors">
                   <td className="pl-6 pr-3 py-4 whitespace-nowrap">
                     <input
@@ -215,10 +227,59 @@ export default function ArticlesTable({ articles }: ArticlesTableProps) {
                   </div>
                 </td>
               </tr>
-            )}
-          </tbody>
+            )}          </tbody>
         </table>
       </div>
+      
+      {/* Pagination */}
+      {showPagination && articles.length > articlesPerPage && (
+        <div className="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-gray-700">
+          <div className="text-sm text-gray-700 dark:text-gray-300">
+            Showing <span className="font-medium">{indexOfFirstArticle + 1}</span> to{" "}
+            <span className="font-medium">
+              {indexOfLastArticle > articles.length ? articles.length : indexOfLastArticle}
+            </span>{" "}
+            of <span className="font-medium">{articles.length}</span> articles
+          </div>
+          <div className="flex space-x-2">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`relative inline-flex items-center px-3 py-2 text-sm font-medium rounded-md ${
+                currentPage === 1
+                  ? "text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                  : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              }`}
+            >
+              Previous
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+              <button
+                key={number}
+                onClick={() => handlePageChange(number)}
+                className={`relative inline-flex items-center px-3 py-2 text-sm font-medium rounded-md ${
+                  currentPage === number
+                    ? "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400"
+                    : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                }`}
+              >
+                {number}
+              </button>
+            ))}
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={`relative inline-flex items-center px-3 py-2 text-sm font-medium rounded-md ${
+                currentPage === totalPages
+                  ? "text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                  : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

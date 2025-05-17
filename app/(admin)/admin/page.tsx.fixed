@@ -22,16 +22,17 @@ export default function AdminDashboard() {
     users: 0,
     views: 0,
   });
-    // Define the article type to match ArticlesTable component expectations
+  
+  // Define the article type to match ArticlesTable component expectations
   interface Article {
     id: string;
     title: string;
     slug: string;
     status: "published" | "draft";
     author: string;
-    category: string;
-    publishedAt: string | null;
-    viewCount?: number;
+    createdAt: string;
+    updatedAt: string;
+    viewCount: number;
   }
   
   const [recentArticles, setRecentArticles] = useState<Article[]>([]);
@@ -69,15 +70,16 @@ export default function AdminDashboard() {
           users: 1247,
           views: 51984
         });
-          setRecentArticles([
+        
+        setRecentArticles([
           {
             id: "1",
             title: "The Future of AI in Gaming: What to Expect in 2025",
             slug: "future-ai-gaming-2025",
             status: "published",
             author: "Jane Smith",
-            category: "Technology",
-            publishedAt: "2023-05-10T14:23:11Z",
+            createdAt: "2023-05-10T14:23:11Z",
+            updatedAt: "2023-05-10T14:23:11Z",
             viewCount: 1243
           },
           {
@@ -86,8 +88,8 @@ export default function AdminDashboard() {
             slug: "review-macbook-pro-m3-max",
             status: "published",
             author: "John Doe",
-            category: "Reviews",
-            publishedAt: "2023-05-09T09:15:22Z",
+            createdAt: "2023-05-09T09:15:22Z",
+            updatedAt: "2023-05-09T09:15:22Z",
             viewCount: 2105
           },
           {
@@ -96,8 +98,8 @@ export default function AdminDashboard() {
             slug: "web3-transforming-online-communities",
             status: "draft",
             author: "Alex Johnson",
-            category: "Web Development",
-            publishedAt: null,
+            createdAt: "2023-05-08T11:42:35Z",
+            updatedAt: "2023-05-08T11:42:35Z",
             viewCount: 0
           },
           {
@@ -106,8 +108,8 @@ export default function AdminDashboard() {
             slug: "essential-cybersecurity-remote-workers",
             status: "published",
             author: "Sarah Williams",
-            category: "Security",
-            publishedAt: "2023-05-07T16:30:12Z",
+            createdAt: "2023-05-07T16:30:12Z",
+            updatedAt: "2023-05-07T16:30:12Z",
             viewCount: 982
           },
           {
@@ -116,8 +118,8 @@ export default function AdminDashboard() {
             slug: "rise-visual-programming-no-code",
             status: "published",
             author: "Michael Chen",
-            category: "Programming",
-            publishedAt: "2023-05-06T10:18:45Z",
+            createdAt: "2023-05-06T10:18:45Z",
+            updatedAt: "2023-05-06T10:18:45Z",
             viewCount: 765
           }
         ]);

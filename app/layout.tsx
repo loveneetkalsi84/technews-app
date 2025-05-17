@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
 import Script from "next/script";
 // Fix the import path using absolute imports
 import { Providers } from "@/app/providers";
 import { ReactNode } from "react";
+// Conditionally include Header and Footer only for non-admin pages
+import ConditionalHeader from "@/app/components/layout/ConditionalHeader";
+import ConditionalFooter from "@/app/components/layout/ConditionalFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,11 +69,11 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950`}>
         <Providers>
-          <Header />
+          <ConditionalHeader />
           <main className="flex-grow">
             {children}
           </main>
-          <Footer />
+          <ConditionalFooter />
         </Providers>
       </body>
     </html>

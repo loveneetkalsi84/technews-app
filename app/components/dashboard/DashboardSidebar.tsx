@@ -28,6 +28,10 @@ type MenuItem = {
   section?: string;
 };
 
+interface DashboardSidebarProps {
+  onToggleCollapse?: (isCollapsed: boolean) => void;
+}
+
 const menuItems: MenuItem[] = [
   { 
     name: "Dashboard", 
@@ -40,6 +44,19 @@ const menuItems: MenuItem[] = [
     path: "/admin/articles", 
     icon: <FaNewspaper className="text-lg" />, 
     badge: 3,
+    section: "content" 
+  },
+  { 
+    name: "Saved Drafts", 
+    path: "/admin/drafts", 
+    icon: <FaBookmark className="text-lg" />, 
+    badge: 2,
+    section: "content" 
+  },
+  { 
+    name: "Categories", 
+    path: "/admin/categories", 
+    icon: <FaLayerGroup className="text-lg" />,
     section: "content" 
   },
   { 
@@ -56,25 +73,12 @@ const menuItems: MenuItem[] = [
     section: "content" 
   },
   { 
-    name: "Categories", 
-    path: "/admin/categories", 
-    icon: <FaLayerGroup className="text-lg" />,
-    section: "content" 
-  },
-  { 
-    name: "Saved Drafts", 
-    path: "/admin/drafts", 
-    icon: <FaBookmark className="text-lg" />, 
-    badge: 2,
-    section: "content" 
-  },
-  { 
     name: "Users", 
     path: "/admin/users", 
     icon: <FaUsers className="text-lg" />,
     section: "management" 
   },
-  { 
+    { 
     name: "Analytics", 
     path: "/admin/analytics", 
     icon: <FaChartBar className="text-lg" />,
@@ -88,11 +92,18 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-export default function DashboardSidebar() {
+export default function DashboardSidebar({ onToggleCollapse }: DashboardSidebarProps) {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { data: session } = useSession();
+  
+  // Notify parent component when sidebar collapse state changes
+  useEffect(() => {
+    if (onToggleCollapse) {
+      onToggleCollapse(isCollapsed);
+    }
+  }, [isCollapsed, onToggleCollapse]);
   
   // Close sidebar when clicking outside on mobile
   useEffect(() => {
@@ -130,6 +141,26 @@ export default function DashboardSidebar() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // Reset collapsed state on mobile view
+  useEffect(() => {
+    const handleResizeForCollapse = () => {
+      if (window.innerWidth < 640) {
+        // On small screens, make sure sidebar is never collapsed
+        if (isCollapsed) {
+          setIsCollapsed(false);
+          if (onToggleCollapse) onToggleCollapse(false);
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResizeForCollapse);
+    handleResizeForCollapse(); // Initialize on first render
+    
+    return () => {
+      window.removeEventListener("resize", handleResizeForCollapse);
+    };
+  }, [isCollapsed, onToggleCollapse]);
 
   const getSectionMenuItems = (section: string) => {
     return menuItems.filter(item => item.section === section);

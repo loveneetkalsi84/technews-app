@@ -5,7 +5,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaPlus, FaFilter, FaSearch, FaFileExport, FaEllipsisH } from "react-icons/fa";
-import AdminWrapper from "@/app/components/dashboard/AdminWrapper";
 import ArticlesTable from "@/app/components/dashboard/ArticlesTable";
 
 // Types
@@ -157,90 +156,90 @@ export default function ArticlesManagementPage() {
       </div>
     );
   }
+
   return (
-    <AdminWrapper>
-        <div className="mx-auto max-w-7xl">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
-            <div>
-              <div className="flex items-center">
-                <div className="h-10 w-1.5 rounded-full bg-blue-600 dark:bg-blue-500 mr-4"></div>
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Articles Management</h1>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 mt-2 ml-5.5">Manage, edit and create new articles</p>
-            </div>
-            <div className="mt-6 md:mt-0 flex flex-wrap gap-3">
-              <Link
-                href="/admin/articles/new"
-                className="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-2.5 px-5 rounded-lg shadow-sm hover:shadow transition-all duration-200"
-              >
-                <FaPlus className="mr-2" />
-                New Article
-              </Link>
-              <button
-                className="inline-flex items-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-medium py-2.5 px-5 rounded-lg shadow-sm hover:shadow transition-all duration-200"
-              >
-                <FaFileExport className="mr-2" />
-                Export
-              </button>
-            </div>
+    <div className="mx-auto max-w-7xl">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
+        <div>
+          <div className="flex items-center">
+            <div className="h-10 w-1.5 rounded-full bg-blue-600 dark:bg-blue-500 mr-4"></div>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Articles Management</h1>
           </div>
+          <p className="text-gray-600 dark:text-gray-400 mt-2 ml-5.5">Manage, edit and create new articles</p>
+        </div>
+        <div className="mt-6 md:mt-0 flex flex-wrap gap-3">
+          <Link
+            href="/admin/articles/new"
+            className="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-2.5 px-5 rounded-lg shadow-sm hover:shadow transition-all duration-200"
+          >
+            <FaPlus className="mr-2" />
+            New Article
+          </Link>
+          <button
+            className="inline-flex items-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-medium py-2.5 px-5 rounded-lg shadow-sm hover:shadow transition-all duration-200"
+          >
+            <FaFileExport className="mr-2" />
+            Export
+          </button>
+        </div>
+      </div>
 
-          {/* Filters and search */}
-          <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 mb-8">
-            <div className="flex flex-col lg:flex-row gap-4">
-              <div className="flex-1 relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <FaSearch className="text-gray-400" />
-                </div>
-                <input
-                  type="search"
-                  className="block w-full pl-10 px-4 py-2.5 text-sm text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
-                  placeholder="Search articles by title or author..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="w-full sm:w-40">
-                  <select
-                    className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                  >
-                    {categories.map((category) => (
-                      <option key={category} value={category.toLowerCase()}>
-                        {category}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div className="w-full sm:w-40">
-                  <select
-                    className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    value={selectedStatus}
-                    onChange={(e) => setSelectedStatus(e.target.value)}
-                  >
-                    <option value="all">All Status</option>
-                    <option value="published">Published</option>
-                    <option value="draft">Draft</option>
-                  </select>
-                </div>
-                
-                <button className="sm:w-auto inline-flex items-center py-2.5 px-5 text-sm font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none">
-                  <FaFilter className="mr-2" />
-                  Filter
-                </button>
-              </div>
+      {/* Filters and search */}
+      <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 mb-8">
+        <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex-1 relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <FaSearch className="text-gray-400" />
             </div>
+            <input
+              type="search"
+              className="block w-full pl-10 px-4 py-2.5 text-sm text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+              placeholder="Search articles by title or author..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-
-          {/* Articles Table */}          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700">
-            <ArticlesTable articles={filteredArticles} />
+          
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="w-full sm:w-40">
+              <select
+                className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
+                {categories.map((category) => (
+                  <option key={category} value={category.toLowerCase()}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            <div className="w-full sm:w-40">
+              <select
+                className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+              >
+                <option value="all">All Status</option>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+            </div>
+            
+            <button className="sm:w-auto inline-flex items-center py-2.5 px-5 text-sm font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none">
+              <FaFilter className="mr-2" />
+              Filter
+            </button>
           </div>
         </div>
-    </AdminWrapper>
+      </div>
+
+      {/* Articles Table */}          
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-700">
+        <ArticlesTable articles={filteredArticles} />
+      </div>
+    </div>
   );
 }

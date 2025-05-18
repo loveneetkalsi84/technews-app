@@ -15,10 +15,10 @@ interface ArticleFilter {
 
 // GET articles with pagination and filtering
 export async function GET(request: NextRequest) {
-  try {
-    // Connect to the database
+  try {    // Connect to the database
     await connectToDatabase();
-      // Parse query parameters
+    
+    // Parse query parameters
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
@@ -98,10 +98,10 @@ export async function POST(request: NextRequest) {
         { status: 403 }
       );
     }
-    
-    // Connect to the database
+      // Connect to the database
     await connectToDatabase();
-      // Parse request body
+    
+    // Parse request body
     const data = await request.json();
     
     // Validate required fields
@@ -111,12 +111,12 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    
-    // Set defaults for optional fields
+      // Set defaults for optional fields
     if (!data.excerpt) {
       data.excerpt = data.content.substring(0, 160) + (data.content.length > 160 ? '...' : '');
     }
-      if (!data.coverImage) {
+    
+    if (!data.coverImage) {
       data.coverImage = "https://via.placeholder.com/1200x630?text=" + encodeURIComponent(data.title);
     }
     
@@ -176,8 +176,7 @@ export async function POST(request: NextRequest) {
       
       // Check keywords/tags presence
       if (article.metaKeywords && article.metaKeywords.length >= 3) {
-        score += 15;
-      } else      if (article.tags && article.tags.length >= 3) {
+        score += 15;      } else if (article.tags && article.tags.length >= 3) {
         score += 10;
       }
       
@@ -191,9 +190,10 @@ export async function POST(request: NextRequest) {
       if (article.coverImage && article.coverImage.length > 10) {
         score += 10;
       }
-      
-      return Math.min(100, score);
-    }      // Debug data before saving
+        return Math.min(100, score);
+    }
+    
+    // Debug data before saving
     console.log("About to save article:", JSON.stringify(article.toObject(), null, 2));
     
     try {
@@ -209,11 +209,11 @@ export async function POST(request: NextRequest) {
         const validationErrors = Object.keys(saveError.errors).map(
           key => `${key}: ${saveError.errors[key].message}`
         ).join(", ");
-        
-        return NextResponse.json(
+          return NextResponse.json(
           { error: "Validation error", details: validationErrors },
           { status: 400 }
-        );      }
+        );
+      }
       
       // Check if it's a duplicate key error
       if (saveError.code === 11000) {

@@ -3,23 +3,30 @@
 import mongoose from 'mongoose';
 import { NextResponse } from 'next/server';
 
+interface TroubleshootingInfo {
+  localMongoDB: string;
+  mongoDBAtlas: string;
+  suggestions: string[];
+  writeTest?: string;
+  writeError?: string;
+}
+
 export async function GET() {
   const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/technews';
-  
-  // Response data
+    // Response data
   let responseData = {
     success: false,
     timestamp: new Date().toISOString(),
     connection: {
       uri: MONGODB_URI.replace(/mongodb(\+srv)?:\/\/([^:]+):([^@]+)@/, 'mongodb$1://[username]:[password]@'),
       status: 'unknown',
-      error: null
+      error: null as string | null
     },
     troubleshooting: {
       localMongoDB: 'Not tested',
       mongoDBAtlas: 'Not tested',
-      suggestions: []
-    }
+      suggestions: [] as string[]
+    } as TroubleshootingInfo
   };
 
   try {
@@ -49,18 +56,16 @@ export async function GET() {
       await new TestModel({ 
         timestamp: new Date(),
         message: 'Connection test successful'
-      }).save();
-      
+      }).save();      
       responseData.troubleshooting.writeTest = 'success';
-    } catch (writeError) {
+    } catch (writeError: any) {
       responseData.troubleshooting.writeTest = 'failed';
       responseData.troubleshooting.writeError = writeError.message;
     }
     
-    // Disconnect from MongoDB
-    await mongoose.disconnect();
+    // Disconnect from MongoDB    await mongoose.disconnect();
     
-  } catch (error) {
+  } catch (error: any) {
     // If error occurs, add error details to response
     responseData.connection.status = 'failed';
     responseData.connection.error = error.message;

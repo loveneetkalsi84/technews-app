@@ -1,0 +1,263 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 249, 250, 251;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 17, 24, 39;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+/* Dashboard Sidebar Fixes */
+@media (min-width: 768px) {
+  #sidebar {
+    transform: translateX(0) !important;
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+
+/* Dashboard layout specific styles */
+.dashboard-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Dashboard header styles */
+.dashboard-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dark .dashboard-header {
+  background-color: #1f2937;
+}
+
+/* Admin dashboard card styling */
+.admin-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+}
+
+.dark .admin-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+/* Custom scrollbar styling */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+  background: #2d3748;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+  border-radius: 4px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Hide scrollbar but allow scrolling */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Focus styles */
+@layer base {
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #3B82F6;
+  }
+  
+  .dark *:focus-visible {
+    box-shadow: 0 0 0 2px #1F2937, 0 0 0 4px #60A5FA;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #F3F4F6;
+  }
+  
+  .dark .card {
+    background-color: #1F2937;
+    border-color: #374151;
+  }
+}
+
+/* Toggle Switch Styles */
+.toggle-checkbox {
+  transition: transform 0.3s ease-in-out;
+  position: absolute;
+  block-size: 1.5rem;
+  inline-size: 1.5rem;
+  border-radius: 9999px;
+  background-color: white;
+  border: 4px solid;
+  appearance: none;
+  cursor: pointer;
+}
+
+.toggle-checkbox:checked {
+  transform: translateX(100%);
+  right: 0;
+  border-color: rgb(139, 92, 246); /* Purple-500 */
+}
+
+.toggle-label {
+  transition: background-color 0.3s ease-in-out;
+  display: block;
+  overflow: hidden;
+  height: 1.5rem;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.toggle-checkbox:checked + .toggle-label {
+  background-color: rgb(139, 92, 246); /* Purple-500 */
+}
+
+@layer components {
+  .dashboard-header {
+    background-color: white; /* bg-white */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+  }
+
+  .dark .dashboard-header {
+    background-color: #1F2937; /* dark:bg-gray-800 */
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #D1D5DB; /* scrollbar-thumb-gray-300 */
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #4B5563; /* dark:scrollbar-thumb-gray-600 */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent; /* scrollbar-track-transparent */
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite;
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.2s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Admin specific styles */
+.bg-gray-750 {
+  background-color: #2D3748;
+}
+
+.admin-panel-height {
+  height: calc(100vh - 64px);
+}
+
+/* Dashboard header */
+.dashboard-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dark .dashboard-header {
+  background-color: #1f2937; /* dark:bg-gray-800 */
+}

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import AdSense from "./AdSense";
 
-export default function AdPlaceholder({ type = "banner" }: { type: "banner" | "sidebar" | "in-article" | "native" }) {
+export default function AdPlaceholder({ type = "banner" }: { type?: "banner" | "sidebar" | "in-article" | "native" }) {
   const [useRealAds, setUseRealAds] = useState(false);
   
   // Check if we should show real ads (in production) or placeholders

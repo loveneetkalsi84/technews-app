@@ -10,7 +10,11 @@ import AdminFooter from "@/app/components/dashboard/AdminFooter";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-export default function AdminWrapper({ children }: { children: ReactNode }) {
+interface AdminWrapperProps {
+  children: ReactNode;
+}
+
+export default function AdminWrapper({ children }: AdminWrapperProps) {
   const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -21,14 +25,19 @@ export default function AdminWrapper({ children }: { children: ReactNode }) {
   const updateSidebarState = (isCollapsed: boolean) => {
     setSidebarCollapsed(isCollapsed);
   };
+  const getSidebarMargin = (isCollapsed: boolean) => {
+    // On mobile (< md breakpoint), don't add margin since the sidebar is hidden or overlay
+    // On medium screens and larger, add margin based on sidebar state
+    return isCollapsed ? 'md:ml-20' : 'md:ml-72';
+  };
   
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Sidebar */}
+      {/* Sidebar - Always present but toggled via state */}
       <DashboardSidebar onToggleCollapse={updateSidebarState} />
 
       {/* Main content */}
-      <div className={`flex flex-col flex-1 w-full ${sidebarCollapsed ? 'md:ml-20' : 'md:ml-72'} transition-all duration-300 min-h-screen custom-scrollbar`}>
+      <div className={`flex flex-col flex-1 w-full ${getSidebarMargin(sidebarCollapsed)} transition-all duration-300 min-h-screen`}>
         {/* Content max-width wrapper for extra large screens */}
         <div className="flex flex-col flex-1 max-w-[1800px] mx-auto w-full">
           {/* Admin Header */}
@@ -66,13 +75,16 @@ export default function AdminWrapper({ children }: { children: ReactNode }) {
                     <span>Import</span>
                   </Link>
                 </div>
-                
-                <button 
+                  <button 
                   className="relative h-9 w-9 flex items-center justify-center text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 bg-gray-100 dark:bg-gray-700 rounded-full transition-all duration-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                   aria-label="Toggle theme"
                 >
-                  {theme === 'dark' ? <FaSun className="text-lg" /> : <FaMoon className="text-lg" />}
+                  {theme === 'dark' 
+                    ? <FaSun className="text-lg text-yellow-500" /> 
+                    : <FaMoon className="text-lg text-blue-500" />
+                  }
+                  <span className="absolute -bottom-8 w-24 text-xs bg-gray-800 text-white px-2 py-1 rounded opacity-0 hover:opacity-100 pointer-events-none transition-opacity">Dark Mode</span>
                 </button>
                 
                 <button 
@@ -82,31 +94,40 @@ export default function AdminWrapper({ children }: { children: ReactNode }) {
                   <FaBell className="text-lg" />
                   <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center shadow-sm">3</span>
                 </button>
-                
-                {/* User profile dropdown */}
+                  {/* User profile dropdown */}
                 <div className="relative">
-                  <button 
-                    onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-                  >
-                    <div className="w-8 h-8 rounded-full overflow-hidden bg-blue-100 dark:bg-gray-700 flex items-center justify-center">
-                      {session?.user?.image ? (
-                        <Image 
-                          src={session.user.image} 
-                          alt={session.user.name || "User"} 
-                          width={32} 
-                          height={32} 
-                          className="object-cover"
-                        />
-                      ) : (
-                        <FaUserCircle className="text-2xl text-blue-500 dark:text-gray-400" />
-                      )}
-                    </div>
-                    <span className="hidden md:block font-medium truncate max-w-[100px]">
-                      {session?.user?.name || "Admin User"}
-                    </span>
-                    <FaChevronDown className={`text-xs opacity-70 transform transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`} />
-                  </button>
+                  {session?.user ? (
+                    <button 
+                      onClick={() => setUserMenuOpen(!userMenuOpen)}
+                      className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                    >
+                      <div className="w-8 h-8 rounded-full overflow-hidden bg-blue-100 dark:bg-gray-700 flex items-center justify-center">
+                        {session.user.image ? (
+                          <Image 
+                            src={session.user.image} 
+                            alt={session.user.name || "User"} 
+                            width={32} 
+                            height={32} 
+                            className="object-cover"
+                          />
+                        ) : (
+                          <FaUserCircle className="text-2xl text-blue-500 dark:text-gray-400" />
+                        )}
+                      </div>
+                      <span className="hidden md:block font-medium truncate max-w-[100px]">
+                        {session.user.name || "Admin User"}
+                      </span>
+                      <FaChevronDown className={`text-xs opacity-70 transform transition-transform duration-200 ${userMenuOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                  ) : (
+                    <Link 
+                      href="/login"
+                      className="flex items-center space-x-2 text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 px-4 py-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                    >
+                      <FaUserCircle className="text-lg" />
+                      <span>Login</span>
+                    </Link>
+                  )}
                   
                   {userMenuOpen && (
                     <div className="absolute right-0 mt-2 w-52 rounded-lg shadow-xl bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 py-1 z-50 border border-gray-200 dark:border-gray-700 overflow-hidden animate-slideUp"
@@ -136,8 +157,7 @@ export default function AdminWrapper({ children }: { children: ReactNode }) {
                           <span>Settings</span>
                         </Link>
                       </div>
-                      
-                      <div className="border-t border-gray-200 dark:border-gray-700 py-1">
+                        <div className="border-t border-gray-200 dark:border-gray-700 py-1">
                         <button
                           onClick={() => signOut({ callbackUrl: '/login' })}
                           className="w-full text-left flex px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 font-medium items-center group transition-colors"
@@ -179,13 +199,11 @@ export default function AdminWrapper({ children }: { children: ReactNode }) {
                 </span>
               </div>
             </div>
-          </header>
-          
-          {/* Main content area */}
+          </header>            {/* Main content area */}
           <div className="flex flex-col flex-grow">
-            <main className={`flex-grow overflow-y-auto custom-scrollbar ${sidebarCollapsed ? 'px-6 sm:px-8 md:px-10' : 'px-4 sm:px-6 md:px-8'}`}>
+            <main className={`flex-grow overflow-y-auto custom-scrollbar ${sidebarCollapsed ? 'px-4 sm:px-6 md:px-8 lg:px-10' : 'px-4 sm:px-6 md:px-8'}`}>
               {/* Main content */}
-              <div className="animate-fadeIn motion-reduce:animate-none py-5 md:py-6">
+              <div className="animate-fadeIn motion-reduce:animate-none py-4 md:py-6">
                 {children}
               </div>
             </main>

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { User } from "@/app/models/schema";
 import bcrypt from "bcrypt";
-import connectToDatabase from "@/app/lib/mongodb";
+import { connectToDatabase } from "@/app/lib/mongodb";
 
 // Create a handler function for registration
 async function registerHandler(req: NextRequest) {

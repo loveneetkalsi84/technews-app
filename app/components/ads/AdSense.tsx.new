@@ -9,32 +9,13 @@ interface AdSenseProps {
   className?: string;
 }
 
-// Add TypeScript declaration for the ins element and adsbygoogle array
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      ins: React.DetailedHTMLProps<React.InsHTMLAttributes<HTMLModElement>, HTMLModElement> & {
-        'data-ad-client'?: string;
-        'data-ad-slot'?: string;
-        'data-ad-format'?: string;
-        'data-full-width-responsive'?: string;
-        ref?: React.RefObject<HTMLModElement>;
-      };
-    }
-  }
-  
-  interface Window {
-    adsbygoogle: any[];
-  }
-}
-
 export default function AdSense({
   adSlot,
   adFormat = "auto",
   style = {},
   className = "",
 }: AdSenseProps) {
-  const adRef = useRef<HTMLModElement>(null);
+  const adRef = useRef<HTMLDivElement>(null);
   const adClientId = "ca-pub-1234567890123456"; // Should match your real AdSense publisher ID
 
   useEffect(() => {

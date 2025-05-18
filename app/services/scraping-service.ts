@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import connectToDatabase from "@/app/lib/mongodb";
+import { connectToDatabase } from "@/app/lib/mongodb";
 import { Product, Source, ScrapedProduct } from "@/app/models/schema";
 
 /**

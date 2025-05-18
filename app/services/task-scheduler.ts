@@ -1,7 +1,7 @@
 import { fetchRssFeeds } from "./rss-service";
 import { scrapeProductData } from "./scraping-service";
 import { generateContent } from "./ai-content-service";
-import connectToDatabase from "@/app/lib/mongodb";
+import { connectToDatabase } from "@/app/lib/mongodb";
 import { ScheduledTask } from "@/app/models/schema";
 
 /**

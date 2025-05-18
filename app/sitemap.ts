@@ -1,5 +1,5 @@
 import { Article, Category } from "@/app/models/schema";
-import connectToDatabase from "@/app/lib/mongodb";
+import { connectToDatabase } from "@/app/lib/mongodb";
 import { MetadataRoute } from "next";
 
 // Define the base URL for your site

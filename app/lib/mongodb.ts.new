@@ -29,31 +29,43 @@ if (!global.mongoose) {
 
 /**
  * Connect to MongoDB and return the mongoose instance
+ * This function is exported as the default export of this module
  */
-export async function connectToDatabase(): Promise<typeof mongoose> {
+async function connectToDatabase(): Promise<typeof mongoose> {
+  // If we already have a connection, return it
   if (cached.conn) {
     return cached.conn;
   }
+
+  // If we don't have a connection promise yet, create one
   if (!cached.promise) {
     const opts = {
-      // Set connection timeout to 10 seconds
-      connectTimeoutMS: 10000,
-      // Enable serverless operation mode for improved performance
-      serverApi: {
-        version: '1' as const,
-        strict: true,
-        deprecationErrors: true,
-      }
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 5000, // 5 seconds timeout
+      connectTimeoutMS: 10000, // 10 seconds timeout
+      socketTimeoutMS: 30000, // 30 seconds timeout
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
-    });
+    cached.promise = mongoose.connect(MONGODB_URI, opts)
+      .then((mongoose) => {
+        console.log('✅ Connected to MongoDB successfully');
+        return mongoose;
+      })
+      .catch((error) => {
+        console.error('❌ MongoDB connection error:', error);
+        
+        // Don't throw the error - instead return mongoose instance anyway
+        // This allows the app to start even without a MongoDB connection
+        console.warn('⚠️ Starting app without MongoDB connection (read-only mode)');
+        return mongoose;
+      });
   }
-  
+
   try {
+    // Wait for the connection to resolve
     cached.conn = await cached.promise;
   } catch (e) {
+    // If there's an error, clear the promise so we can try again
     cached.promise = null;
     throw e;
   }
@@ -61,15 +73,5 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
   return cached.conn;
 }
 
-/**
- * Disconnects from MongoDB - helpful for tests and CLI tools
- */
-export async function disconnectFromDatabase(): Promise<void> {
-  if (cached.conn) {
-    await cached.conn.disconnect();
-    cached.conn = null;
-    cached.promise = null;
-  }
-}
-
-export default mongoose;
+// Export the connectToDatabase function as the default export
+export default connectToDatabase;

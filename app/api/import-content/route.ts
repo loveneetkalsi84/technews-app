@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { saveRSSArticlesToDB } from "@/app/lib/scraping/rss-parser";
 import { saveScrapedArticlesToDB } from "@/app/lib/scraping/web-scraper";
-import connectToDatabase from "@/app/lib/mongodb";
+import { connectToDatabase } from "@/app/lib/mongodb";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 

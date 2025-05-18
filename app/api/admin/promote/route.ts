@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { User } from "@/app/models/schema";
-import connectToDatabase from "@/app/lib/mongodb";
+import { connectToDatabase } from "@/app/lib/mongodb";
 import { Types } from "mongoose";
 
 // This endpoint updates a user's role to admin

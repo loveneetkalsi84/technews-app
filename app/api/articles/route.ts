@@ -1,16 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Article } from "@/app/models/schema";
-import connectToDatabase from "@/app/lib/mongodb";
+import { Article, IArticle } from "@/app/models/schema";
+import { connectToDatabase } from "@/app/lib/mongodb";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+// Define interface for MongoDB filter
+interface ArticleFilter {
+  isPublished?: boolean;
+  category?: string;
+  tags?: string;
+  author?: string;
+  $text?: { $search: string };
+}
 
 // GET articles with pagination and filtering
 export async function GET(request: NextRequest) {
   try {
     // Connect to the database
     await connectToDatabase();
-    
-    // Parse query parameters
+      // Parse query parameters
     const searchParams = request.nextUrl.searchParams;
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
@@ -20,7 +28,7 @@ export async function GET(request: NextRequest) {
     const authorId = searchParams.get("author");
     
     // Build the filter object
-    const filter: any = { isPublished: true };
+    const filter: ArticleFilter = { isPublished: true };
     
     if (category) {
       filter.category = category;
@@ -93,10 +101,10 @@ export async function POST(request: NextRequest) {
     
     // Connect to the database
     await connectToDatabase();
-    
-    // Parse request body
+      // Parse request body
     const data = await request.json();
-      // Validate required fields
+    
+    // Validate required fields
     if (!data.title || !data.content || !data.slug) {
       return NextResponse.json(
         { error: "Title, content, and slug are required" },
@@ -108,10 +116,11 @@ export async function POST(request: NextRequest) {
     if (!data.excerpt) {
       data.excerpt = data.content.substring(0, 160) + (data.content.length > 160 ? '...' : '');
     }
-    
-    if (!data.coverImage) {
+      if (!data.coverImage) {
       data.coverImage = "https://via.placeholder.com/1200x630?text=" + encodeURIComponent(data.title);
-    }    // Format the data properly before creating the article
+    }
+    
+    // Format the data properly before creating the article
     const formattedData = {
       title: data.title,
       slug: data.slug,
@@ -168,10 +177,11 @@ export async function POST(request: NextRequest) {
       // Check keywords/tags presence
       if (article.metaKeywords && article.metaKeywords.length >= 3) {
         score += 15;
-      } else if (article.tags && article.tags.length >= 3) {
+      } else      if (article.tags && article.tags.length >= 3) {
         score += 10;
       }
-        // Check if slug contains keywords from title
+      
+      // Check if slug contains keywords from title
       const titleWords = article.title.toLowerCase().split(' ');
       if (titleWords.some((word: string) => article.slug.toLowerCase().includes(word))) {
         score += 10;
@@ -183,14 +193,13 @@ export async function POST(request: NextRequest) {
       }
       
       return Math.min(100, score);
-    }
-      // Debug data before saving
+    }      // Debug data before saving
     console.log("About to save article:", JSON.stringify(article.toObject(), null, 2));
     
     try {
       // Save to database
       await article.save();
-        console.log("Article saved successfully");
+      console.log("Article saved successfully");
       return NextResponse.json(article, { status: 201 });
     } catch (saveError: any) {
       console.error("Error in article.save():", saveError);
@@ -204,8 +213,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(
           { error: "Validation error", details: validationErrors },
           { status: 400 }
-        );
-      }
+        );      }
       
       // Check if it's a duplicate key error
       if (saveError.code === 11000) {
@@ -214,7 +222,8 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
       }
-        throw saveError; // Re-throw for the outer catch block
+      
+      throw saveError; // Re-throw for the outer catch block
     }
   } catch (error) {
     console.error("Error creating article:", error);

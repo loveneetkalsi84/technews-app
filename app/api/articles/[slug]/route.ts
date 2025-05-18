@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Article } from "@/app/models/schema";
-import connectToDatabase from "@/app/lib/mongodb";
+import { connectToDatabase } from "@/app/lib/mongodb";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 

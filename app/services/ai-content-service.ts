@@ -1,4 +1,4 @@
-import connectToDatabase from "@/app/lib/mongodb";
+import { connectToDatabase } from "@/app/lib/mongodb";
 import { Article, Source } from "@/app/models/schema";
 import { generateSlug } from "@/app/utils/helpers";
 import OpenAI from "openai";

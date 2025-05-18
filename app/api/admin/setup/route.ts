@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { User } from "@/app/models/schema";
 import bcrypt from "bcrypt";
-import connectToDatabase from "@/app/lib/mongodb";
+import { connectToDatabase } from "@/app/lib/mongodb";
 
 // This endpoint should only be used for initial setup and then secured or removed
 export async function POST(req: NextRequest) {

@@ -1,0 +1,903 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { 
+  FaSave, 
+  FaSpinner, 
+  FaGlobe, 
+  FaCog, 
+  FaEnvelope, 
+  FaServer,
+  FaArrowLeft,
+  FaCheck,
+  FaTimes,
+  FaInfoCircle
+} from "react-icons/fa";
+
+export default function SettingsPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const [activeTab, setActiveTab] = useState("general");
+  
+  const [settings, setSettings] = useState({
+    general: {
+      siteName: "TechNews",
+      siteDescription: "Your source for the latest tech news and reviews",
+      siteTagline: "Stay ahead with tech insights",
+      siteUrl: "https://technews.example.com",
+      logoUrl: "/images/logo.png",
+      faviconUrl: "/images/favicon.ico",
+      socialShareImage: "/images/social-share.png",
+      postsPerPage: 10,
+      defaultCategory: "News",
+    },
+    seo: {
+      metaTitle: "TechNews - Latest Technology News and Reviews",
+      metaDescription: "Stay updated with the latest technology news, product reviews, and digital trends on TechNews",
+      useOpenGraph: true,
+      googleAnalyticsId: "",
+      enableIndexing: true,
+      enableSitemap: true,
+      sitemapChangeFreq: "daily",
+      sitemapPriority: "0.7",
+    },
+    email: {
+      fromEmail: "notifications@technews.example.com",
+      fromName: "TechNews Notifications",
+      smtpHost: "smtp.example.com",
+      smtpPort: 587,
+      smtpUser: "smtp_user",
+      smtpPassword: "********",
+      smtpSecure: true,
+      notifyOnNewComment: true,
+      notifyOnUserRegistration: true,
+      adminEmail: "admin@technews.example.com",
+    },
+    advanced: {
+      cacheEnabled: true,
+      cacheTTL: 3600,
+      debugMode: false,
+      maintenanceMode: false,
+      maintenanceMessage: "We're currently performing maintenance. Please check back soon.",
+      apiTimeout: 30000,
+      maxUploadSize: 10,
+      allowedFileTypes: "jpg,jpeg,png,gif,pdf,doc,docx",
+      compressionEnabled: true,
+      rateLimiting: true,
+      maxRequestsPerMinute: 60,
+    },
+  });
+  
+  // Simulating loading of settings from an API
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    } else {
+      // Simulate API call
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 800);
+    }
+  }, [status, router]);
+  
+  const handleSubmit = () => {
+    setIsSaving(true);
+    setSuccess("");
+    setError("");
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsSaving(false);
+      setSuccess("Settings saved successfully!");
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setSuccess("");
+      }, 5000);
+    }, 1500);
+  };
+  
+  // Helper to handle input changes
+  const handleInputChange = (section, field, value) => {
+    setSettings({
+      ...settings,
+      [section]: {
+        ...settings[section],
+        [field]: value,
+      },
+    });
+  };
+  
+  // Render loading state
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <FaSpinner className="animate-spin text-4xl text-blue-500 mx-auto mb-4" />
+          <h2 className="text-xl font-semibold">Loading settings...</h2>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
+            Site Settings
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300 mt-1">
+            Configure your website's global settings and preferences
+          </p>
+        </div>
+        <div className="mt-4 sm:mt-0">
+          <Link href="/admin" 
+            className="inline-flex items-center text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors">
+            <FaArrowLeft className="mr-2" />
+            Back to Dashboard
+          </Link>
+        </div>
+      </div>
+      
+      {/* Success/Error Messages */}
+      {success && (
+        <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg flex items-center shadow-sm dark:bg-green-900/30 dark:text-green-400 dark:border-green-800">
+          <FaCheck className="mr-2 text-green-500 dark:text-green-400" />
+          {success}
+        </div>
+      )}
+      
+      {error && (
+        <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center shadow-sm dark:bg-red-900/30 dark:text-red-400 dark:border-red-800">
+          <FaTimes className="mr-2 text-red-500 dark:text-red-400" />
+          {error}
+        </div>
+      )}
+      
+      {/* Settings Navigation Tabs */}
+      <div className="mb-8">
+        <div className="border-b border-gray-200 dark:border-gray-700">
+          <nav className="-mb-px flex space-x-6 overflow-x-auto scrollbar-hide">
+            <button
+              className={`${
+                activeTab === "general"
+                  ? "border-blue-500 text-blue-600 dark:text-blue-400"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-600"
+              } whitespace-nowrap flex items-center pb-4 px-1 border-b-2 font-medium text-sm`}
+              onClick={() => setActiveTab("general")}
+            >
+              <FaGlobe className="mr-2" />
+              General
+            </button>
+            
+            <button
+              className={`${
+                activeTab === "seo"
+                  ? "border-blue-500 text-blue-600 dark:text-blue-400"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-600"
+              } whitespace-nowrap flex items-center pb-4 px-1 border-b-2 font-medium text-sm`}
+              onClick={() => setActiveTab("seo")}
+            >
+              <FaEye className="mr-2 h-4 w-4" />
+              SEO & Meta
+            </button>
+            
+            <button
+              className={`${
+                activeTab === "email"
+                  ? "border-blue-500 text-blue-600 dark:text-blue-400"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-600"
+              } whitespace-nowrap flex items-center pb-4 px-1 border-b-2 font-medium text-sm`}
+              onClick={() => setActiveTab("email")}
+            >
+              <FaEnvelope className="mr-2" />
+              Email
+            </button>
+            
+            <button
+              className={`${
+                activeTab === "advanced"
+                  ? "border-blue-500 text-blue-600 dark:text-blue-400"
+                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-600"
+              } whitespace-nowrap flex items-center pb-4 px-1 border-b-2 font-medium text-sm`}
+              onClick={() => setActiveTab("advanced")}
+            >
+              <FaServer className="mr-2" />
+              Advanced
+            </button>
+          </nav>
+        </div>
+      </div>
+      
+      {/* Settings Form */}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        {/* General Settings */}
+        {activeTab === "general" && (
+          <div className="space-y-6">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+              General Settings
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="siteName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Site Name
+                </label>
+                <input
+                  type="text"
+                  id="siteName"
+                  value={settings.general.siteName}
+                  onChange={(e) => handleInputChange("general", "siteName", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="siteUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Site URL
+                </label>
+                <input
+                  type="text"
+                  id="siteUrl"
+                  value={settings.general.siteUrl}
+                  onChange={(e) => handleInputChange("general", "siteUrl", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div className="md:col-span-2">
+                <label htmlFor="siteDescription" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Site Description
+                </label>
+                <textarea
+                  id="siteDescription"
+                  rows={3}
+                  value={settings.general.siteDescription}
+                  onChange={(e) => handleInputChange("general", "siteDescription", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="siteTagline" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Site Tagline
+                </label>
+                <input
+                  type="text"
+                  id="siteTagline"
+                  value={settings.general.siteTagline}
+                  onChange={(e) => handleInputChange("general", "siteTagline", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="postsPerPage" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Posts Per Page
+                </label>
+                <input
+                  type="number"
+                  id="postsPerPage"
+                  min="1"
+                  max="50"
+                  value={settings.general.postsPerPage}
+                  onChange={(e) => handleInputChange("general", "postsPerPage", parseInt(e.target.value))}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="logoUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Logo URL
+                </label>
+                <input
+                  type="text"
+                  id="logoUrl"
+                  value={settings.general.logoUrl}
+                  onChange={(e) => handleInputChange("general", "logoUrl", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="faviconUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Favicon URL
+                </label>
+                <input
+                  type="text"
+                  id="faviconUrl"
+                  value={settings.general.faviconUrl}
+                  onChange={(e) => handleInputChange("general", "faviconUrl", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="defaultCategory" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Default Category
+                </label>
+                <input
+                  type="text"
+                  id="defaultCategory"
+                  value={settings.general.defaultCategory}
+                  onChange={(e) => handleInputChange("general", "defaultCategory", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="socialShareImage" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Social Share Image
+                </label>
+                <input
+                  type="text"
+                  id="socialShareImage"
+                  value={settings.general.socialShareImage}
+                  onChange={(e) => handleInputChange("general", "socialShareImage", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* SEO Settings */}
+        {activeTab === "seo" && (
+          <div className="space-y-6">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+              SEO & Meta Settings
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="md:col-span-2">
+                <label htmlFor="metaTitle" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Default Meta Title
+                </label>
+                <input
+                  type="text"
+                  id="metaTitle"
+                  value={settings.seo.metaTitle}
+                  onChange={(e) => handleInputChange("seo", "metaTitle", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 flex items-center">
+                  <FaInfoCircle className="mr-1" />
+                  Recommended length: 50-60 characters
+                </p>
+              </div>
+              
+              <div className="md:col-span-2">
+                <label htmlFor="metaDescription" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Default Meta Description
+                </label>
+                <textarea
+                  id="metaDescription"
+                  rows={3}
+                  value={settings.seo.metaDescription}
+                  onChange={(e) => handleInputChange("seo", "metaDescription", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 flex items-center">
+                  <FaInfoCircle className="mr-1" />
+                  Recommended length: 150-160 characters
+                </p>
+              </div>
+              
+              <div>
+                <label htmlFor="googleAnalyticsId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Google Analytics ID
+                </label>
+                <input
+                  type="text"
+                  id="googleAnalyticsId"
+                  value={settings.seo.googleAnalyticsId}
+                  onChange={(e) => handleInputChange("seo", "googleAnalyticsId", e.target.value)}
+                  placeholder="e.g. G-XXXXXXXXXX or UA-XXXXXXXXX-X"
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="useOpenGraph"
+                    type="checkbox"
+                    checked={settings.seo.useOpenGraph}
+                    onChange={(e) => handleInputChange("seo", "useOpenGraph", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="useOpenGraph" className="font-medium text-gray-700 dark:text-gray-300">
+                    Enable Open Graph Tags
+                  </label>
+                  <p className="text-gray-500 text-sm dark:text-gray-400">
+                    Improve how your content appears when shared on social media
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="enableIndexing"
+                    type="checkbox"
+                    checked={settings.seo.enableIndexing}
+                    onChange={(e) => handleInputChange("seo", "enableIndexing", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="enableIndexing" className="font-medium text-gray-700 dark:text-gray-300">
+                    Allow Search Engines to Index Site
+                  </label>
+                  <p className="text-gray-500 text-sm dark:text-gray-400">
+                    Disable this during development or to hide from search engines
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="enableSitemap"
+                    type="checkbox"
+                    checked={settings.seo.enableSitemap}
+                    onChange={(e) => handleInputChange("seo", "enableSitemap", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="enableSitemap" className="font-medium text-gray-700 dark:text-gray-300">
+                    Generate XML Sitemap
+                  </label>
+                  <p className="text-gray-500 text-sm dark:text-gray-400">
+                    Helps search engines discover and index your content
+                  </p>
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="sitemapChangeFreq" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Sitemap Change Frequency
+                </label>
+                <select
+                  id="sitemapChangeFreq"
+                  value={settings.seo.sitemapChangeFreq}
+                  onChange={(e) => handleInputChange("seo", "sitemapChangeFreq", e.target.value)}
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-700 dark:text-white"
+                >
+                  <option value="always">always</option>
+                  <option value="hourly">hourly</option>
+                  <option value="daily">daily</option>
+                  <option value="weekly">weekly</option>
+                  <option value="monthly">monthly</option>
+                  <option value="yearly">yearly</option>
+                  <option value="never">never</option>
+                </select>
+              </div>
+              
+              <div>
+                <label htmlFor="sitemapPriority" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Sitemap Priority
+                </label>
+                <select
+                  id="sitemapPriority"
+                  value={settings.seo.sitemapPriority}
+                  onChange={(e) => handleInputChange("seo", "sitemapPriority", e.target.value)}
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md dark:bg-gray-700 dark:text-white"
+                >
+                  <option value="0.0">0.0</option>
+                  <option value="0.1">0.1</option>
+                  <option value="0.2">0.2</option>
+                  <option value="0.3">0.3</option>
+                  <option value="0.4">0.4</option>
+                  <option value="0.5">0.5</option>
+                  <option value="0.6">0.6</option>
+                  <option value="0.7">0.7</option>
+                  <option value="0.8">0.8</option>
+                  <option value="0.9">0.9</option>
+                  <option value="1.0">1.0</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Email Settings */}
+        {activeTab === "email" && (
+          <div className="space-y-6">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+              Email Settings
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="fromEmail" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  From Email
+                </label>
+                <input
+                  type="email"
+                  id="fromEmail"
+                  value={settings.email.fromEmail}
+                  onChange={(e) => handleInputChange("email", "fromEmail", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="fromName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  From Name
+                </label>
+                <input
+                  type="text"
+                  id="fromName"
+                  value={settings.email.fromName}
+                  onChange={(e) => handleInputChange("email", "fromName", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="smtpHost" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  SMTP Host
+                </label>
+                <input
+                  type="text"
+                  id="smtpHost"
+                  value={settings.email.smtpHost}
+                  onChange={(e) => handleInputChange("email", "smtpHost", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="smtpPort" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  SMTP Port
+                </label>
+                <input
+                  type="number"
+                  id="smtpPort"
+                  value={settings.email.smtpPort}
+                  onChange={(e) => handleInputChange("email", "smtpPort", parseInt(e.target.value))}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="smtpUser" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  SMTP Username
+                </label>
+                <input
+                  type="text"
+                  id="smtpUser"
+                  value={settings.email.smtpUser}
+                  onChange={(e) => handleInputChange("email", "smtpUser", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="smtpPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  SMTP Password
+                </label>
+                <input
+                  type="password"
+                  id="smtpPassword"
+                  value={settings.email.smtpPassword}
+                  onChange={(e) => handleInputChange("email", "smtpPassword", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="adminEmail" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Admin Email
+                </label>
+                <input
+                  type="email"
+                  id="adminEmail"
+                  value={settings.email.adminEmail}
+                  onChange={(e) => handleInputChange("email", "adminEmail", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="smtpSecure"
+                    type="checkbox"
+                    checked={settings.email.smtpSecure}
+                    onChange={(e) => handleInputChange("email", "smtpSecure", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="smtpSecure" className="font-medium text-gray-700 dark:text-gray-300">
+                    Use Secure Connection (TLS/SSL)
+                  </label>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="notifyOnNewComment"
+                    type="checkbox"
+                    checked={settings.email.notifyOnNewComment}
+                    onChange={(e) => handleInputChange("email", "notifyOnNewComment", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="notifyOnNewComment" className="font-medium text-gray-700 dark:text-gray-300">
+                    Notify Admin on New Comments
+                  </label>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="notifyOnUserRegistration"
+                    type="checkbox"
+                    checked={settings.email.notifyOnUserRegistration}
+                    onChange={(e) => handleInputChange("email", "notifyOnUserRegistration", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="notifyOnUserRegistration" className="font-medium text-gray-700 dark:text-gray-300">
+                    Notify Admin on New User Registration
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Advanced Settings */}
+        {activeTab === "advanced" && (
+          <div className="space-y-6">
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+              Advanced Settings
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="cacheEnabled"
+                    type="checkbox"
+                    checked={settings.advanced.cacheEnabled}
+                    onChange={(e) => handleInputChange("advanced", "cacheEnabled", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="cacheEnabled" className="font-medium text-gray-700 dark:text-gray-300">
+                    Enable Caching
+                  </label>
+                  <p className="text-gray-500 text-sm dark:text-gray-400">
+                    Improves performance but may delay content updates
+                  </p>
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="cacheTTL" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Cache TTL (seconds)
+                </label>
+                <input
+                  type="number"
+                  id="cacheTTL"
+                  min="0"
+                  value={settings.advanced.cacheTTL}
+                  onChange={(e) => handleInputChange("advanced", "cacheTTL", parseInt(e.target.value))}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="debugMode"
+                    type="checkbox"
+                    checked={settings.advanced.debugMode}
+                    onChange={(e) => handleInputChange("advanced", "debugMode", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="debugMode" className="font-medium text-gray-700 dark:text-gray-300">
+                    Debug Mode
+                  </label>
+                  <p className="text-gray-500 text-sm dark:text-gray-400">
+                    Enables verbose logging and error reporting
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="maintenanceMode"
+                    type="checkbox"
+                    checked={settings.advanced.maintenanceMode}
+                    onChange={(e) => handleInputChange("advanced", "maintenanceMode", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="maintenanceMode" className="font-medium text-gray-700 dark:text-gray-300">
+                    Maintenance Mode
+                  </label>
+                  <p className="text-gray-500 text-sm dark:text-gray-400">
+                    Shows a maintenance page to visitors
+                  </p>
+                </div>
+              </div>
+              
+              <div className="md:col-span-2">
+                <label htmlFor="maintenanceMessage" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Maintenance Message
+                </label>
+                <textarea
+                  id="maintenanceMessage"
+                  rows={2}
+                  value={settings.advanced.maintenanceMessage}
+                  onChange={(e) => handleInputChange("advanced", "maintenanceMessage", e.target.value)}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="apiTimeout" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  API Timeout (ms)
+                </label>
+                <input
+                  type="number"
+                  id="apiTimeout"
+                  min="1000"
+                  step="1000"
+                  value={settings.advanced.apiTimeout}
+                  onChange={(e) => handleInputChange("advanced", "apiTimeout", parseInt(e.target.value))}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="maxUploadSize" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Max Upload Size (MB)
+                </label>
+                <input
+                  type="number"
+                  id="maxUploadSize"
+                  min="1"
+                  max="100"
+                  value={settings.advanced.maxUploadSize}
+                  onChange={(e) => handleInputChange("advanced", "maxUploadSize", parseInt(e.target.value))}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div className="md:col-span-2">
+                <label htmlFor="allowedFileTypes" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Allowed File Types
+                </label>
+                <input
+                  type="text"
+                  id="allowedFileTypes"
+                  value={settings.advanced.allowedFileTypes}
+                  onChange={(e) => handleInputChange("advanced", "allowedFileTypes", e.target.value)}
+                  placeholder="Enter comma-separated file extensions"
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="compressionEnabled"
+                    type="checkbox"
+                    checked={settings.advanced.compressionEnabled}
+                    onChange={(e) => handleInputChange("advanced", "compressionEnabled", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="compressionEnabled" className="font-medium text-gray-700 dark:text-gray-300">
+                    Enable Content Compression
+                  </label>
+                  <p className="text-gray-500 text-sm dark:text-gray-400">
+                    Reduces bandwidth usage and improves loading speeds
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="flex items-center h-5">
+                  <input
+                    id="rateLimiting"
+                    type="checkbox"
+                    checked={settings.advanced.rateLimiting}
+                    onChange={(e) => handleInputChange("advanced", "rateLimiting", e.target.checked)}
+                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="rateLimiting" className="font-medium text-gray-700 dark:text-gray-300">
+                    Enable Rate Limiting
+                  </label>
+                  <p className="text-gray-500 text-sm dark:text-gray-400">
+                    Protects against abuse and DoS attacks
+                  </p>
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="maxRequestsPerMinute" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Max Requests Per Minute
+                </label>
+                <input
+                  type="number"
+                  id="maxRequestsPerMinute"
+                  min="10"
+                  step="10"
+                  value={settings.advanced.maxRequestsPerMinute}
+                  onChange={(e) => handleInputChange("advanced", "maxRequestsPerMinute", parseInt(e.target.value))}
+                  className="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:text-white"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Form Actions */}
+        <div className="mt-8 pt-5 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="inline-flex items-center bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-medium py-2.5 px-5 rounded-lg shadow-sm hover:shadow transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+              disabled={isSaving}
+            >
+              {isSaving ? (
+                <>
+                  <FaSpinner className="animate-spin mr-2" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <FaSave className="mr-2" />
+                  Save Settings
+                </>
+              )}
+          </button>          </div>
+      </div>
+    </div>
+  );
+}
+
+type FaEye = React.ElementType;
+const FaEye: FaEye = ({ className }) => {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 576 512"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/>
+    </svg>
+  );
+};

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Article } from "@/app/models/schema";
-import connectToDatabase from "@/app/lib/mongodb";
+import { connectToDatabase } from "@/app/lib/mongodb";
 
 // Test article creation via POST request
 export async function POST(request: NextRequest) {

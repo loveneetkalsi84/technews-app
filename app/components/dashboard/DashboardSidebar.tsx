@@ -165,7 +165,6 @@ export default function DashboardSidebar({ onToggleCollapse }: DashboardSidebarP
   const getSectionMenuItems = (section: string) => {
     return menuItems.filter(item => item.section === section);
   };
-
   return (
     <>
       {/* Mobile menu button - only visible on small screens */}
@@ -180,13 +179,12 @@ export default function DashboardSidebar({ onToggleCollapse }: DashboardSidebarP
           {isMobileMenuOpen ? <FaTimes className="text-lg" /> : <FaBars className="text-lg" />}
         </button>
       </div>
-      
-      {/* Sidebar */}
+        {/* Sidebar */}
       <div
         id="sidebar"
         className={`fixed inset-y-0 left-0 z-20 ${isCollapsed ? "w-20" : "w-72"} bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-white transform transition-all duration-300 ease-in-out md:translate-x-0 custom-scrollbar ${
-          isMobileMenuOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
-        } flex flex-col`}
+          isMobileMenuOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full md:translate-x-0"
+        } flex flex-col shadow-lg opacity-100 md:opacity-100`}
       >
         {/* Logo */}
         <div className="p-4 border-b border-white/20 dark:border-gray-700/50 flex justify-between items-center bg-gradient-to-r from-blue-800 to-indigo-800 dark:from-gray-900 dark:to-gray-800">

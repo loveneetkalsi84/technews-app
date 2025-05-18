@@ -1,8 +1,12 @@
 import { MongoClient } from "mongodb";
 
-// Replace this with your MongoDB connection string
-const uri = process.env.MONGODB_URI || "";
-const options = {};
+// Set MongoDB URI with a fallback for local development
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/technews";
+const options = {
+  connectTimeoutMS: 10000, // 10 seconds timeout
+  serverSelectionTimeoutMS: 5000, // 5 seconds timeout
+  socketTimeoutMS: 30000 // 30 seconds timeout
+};
 
 let client;
 let clientPromise: Promise<MongoClient>;

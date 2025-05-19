@@ -6,7 +6,21 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verify-slug-fix": "node tests/article-tests/verify-slug-fix.js",
+    "verify-view-link": "node tests/article-tests/verify-view-article-link.js",
+    "verify-article-rendering": "node tests/article-tests/verify-article-rendering.js",
+    "verify-all-links": "node tests/integration-tests/verify-article-links.js",
+    "verify-mock-links": "node tests/integration-tests/verify-article-links-mock.js",
+    "quick-article-test": "node tests/article-tests/quick-verify-article-rendering.js",
+    "quick-slug-test": "node tests/article-tests/quick-check-slug-handling.js",
+    "verify-article-comprehensive": "node tests/article-tests/verify-article-rendering-comprehensive.js",
+    "verify-slug-handling": "node tests/article-tests/verify-slug-handling.js",
+    "test": "powershell -File ./run-tests.ps1",
+    "test:articles": "powershell -Command \"$env:TEST_ARTICLES_ONLY=$true; ./run-tests.ps1\"",
+    "test:integration": "powershell -Command \"$env:TEST_INTEGRATION_ONLY=$true; ./run-tests.ps1\"",
+    "test:article-features": "powershell -File ./test-article-features.ps1",
+    "verify-all": "powershell -File ./verify-fix.ps1"
   },
   "dependencies": {
     "@google-cloud/language": "^7.0.2",

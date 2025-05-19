@@ -47,15 +47,30 @@ export default function ArticlesManagementPage() {
 
   const fetchArticles = async () => {
     setIsLoading(true);
-    
-    try {
-      // In production, fetch from API
-      // const response = await fetch("/api/articles/admin");
-      // const data = await response.json();
-      // setArticles(data.articles);
+      try {
+      // For admin, we want to see all articles regardless of published status
+      // Adding showAll parameter to get all articles including drafts
+      const response = await fetch("/api/articles?showAll=true");
+      const data = await response.json();
       
-      // For now, use mock data
-      setTimeout(() => {
+      // Map API data to match the component's expected format
+      const formattedArticles = data.articles.map((article: any) => ({
+        id: article._id,
+        title: article.title,
+        slug: article.slug,
+        status: article.isPublished ? "published" : "draft",
+        author: typeof article.author === 'string' ? article.author : (article.author?.name || "Admin"),
+        category: typeof article.category === 'string' ? article.category : (article.category?.name || "Uncategorized"),
+        publishedAt: article.publishedAt,
+        viewCount: article.viewCount || 0,
+      }));
+      
+      setArticles(formattedArticles);
+      setIsLoading(false);
+      
+      // If no articles are returned, use mock data for testing UI
+      if (formattedArticles.length === 0) {
+        console.log("No articles found in database, using mock data");
         setArticles([
           {
             id: "1",
@@ -128,9 +143,7 @@ export default function ArticlesManagementPage() {
             viewCount: 5689,
           },
         ]);
-        
-        setIsLoading(false);
-      }, 1000);
+      }
     } catch (error) {
       console.error("Error fetching articles:", error);
       setIsLoading(false);

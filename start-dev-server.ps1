@@ -10,4 +10,4 @@ Write-Host "Press Ctrl+C to stop the server" -ForegroundColor Yellow
 Set-Location -Path "c:\xampp\htdocs\TechNews\technews-app"
 
 # Start the Next.js development server on port 3002
-npm run dev -- -p $port
+npx next dev -p $port

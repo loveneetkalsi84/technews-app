@@ -5,6 +5,8 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { NextResponse } from "next/server";
+import Markdown from "react-markdown";
+import Image from "next/image";
 import { 
   FaSave, 
   FaTimes, 
@@ -17,6 +19,27 @@ import {
 
 // Form data persistence key in localStorage
 const FORM_STORAGE_KEY = 'technews_article_draft';
+
+// Utility function to normalize a slug string to valid format
+const normalizeSlug = (slug: string): string => {
+  // Convert to lowercase
+  let normalizedSlug = slug.toLowerCase()
+    // Remove special characters except spaces and hyphens
+    .replace(/[^\w\s-]/gi, '')
+    // Replace spaces with hyphens
+    .replace(/\s+/g, '-')
+    // Remove leading and trailing hyphens
+    .replace(/^-+|-+$/g, '')
+    // Replace consecutive hyphens with a single hyphen
+    .replace(/-{2,}/g, '-');
+
+  // If the slug is empty after normalization, provide a default
+  if (!normalizedSlug) {
+    normalizedSlug = 'article-' + Date.now();
+  }
+
+  return normalizedSlug;
+};
 
 export default function NewArticlePage() {
   const { data: session, status, update: updateSession } = useSession();
@@ -117,22 +140,25 @@ export default function NewArticlePage() {
         setIsLoading(false);
       }
     }
-  }, [status, session, router]);
-
-  // Handle form input changes
+  }, [status, session, router]);  // Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     
     // If title is changed, auto-generate a slug (unless slug was manually edited)
     if (name === "title" && !formData.slug) {
-      const generatedSlug = value.toLowerCase()
-        .replace(/[^\w\s]/gi, '')
-        .replace(/\s+/g, '-');
+      // Use the normalizeSlug utility to generate a valid slug from the title
+      const generatedSlug = normalizeSlug(value);
       
       setFormData({
         ...formData,
         [name]: value,
         slug: generatedSlug
+      });
+    } else if (name === "slug") {
+      // If slug is being manually edited, normalize it to ensure validity
+      setFormData({
+        ...formData,
+        [name]: normalizeSlug(value)
       });
     } else {
       setFormData({
@@ -141,7 +167,6 @@ export default function NewArticlePage() {
       });
     }
   };
-
   // Function to validate the form data
   const validateForm = (): { isValid: boolean; errorMessage?: string } => {
     // Check for required fields
@@ -156,10 +181,21 @@ export default function NewArticlePage() {
     if (!formData.slug.trim()) {
       return { isValid: false, errorMessage: "URL slug is required" };
     }
-    
-    // Validate slug format (only alphanumeric chars, hyphens, no spaces)
+      // Validate slug format (only alphanumeric chars, hyphens, no spaces)
     const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
     if (!slugRegex.test(formData.slug.trim())) {
+      // Use the normalizeSlug utility to fix the slug
+      const fixedSlug = normalizeSlug(formData.slug);
+      
+      // If the fixed slug is valid, update the form and continue
+      if (slugRegex.test(fixedSlug)) {
+        setFormData({
+          ...formData,
+          slug: fixedSlug
+        });
+        return { isValid: true };
+      }
+      
       return { 
         isValid: false, 
         errorMessage: "URL slug can only contain lowercase letters, numbers, and hyphens. It cannot start or end with a hyphen." 
@@ -244,10 +280,29 @@ export default function NewArticlePage() {
       setIsSaving(false);
     }
   };
-
   // Toggle between edit and preview modes
   const togglePreview = () => {
-    setIsPreview(!isPreview);
+    // Using a try-catch to ensure any errors in preview mode don't break the form
+    try {
+      // Validate if we have enough content to show a preview
+      if (formData.title.trim() === '') {
+        setError('Please add a title before previewing');
+        return;
+      }
+      
+      if (formData.content.trim() === '') {
+        setError('Please add some content before previewing');
+        return;
+      }
+      
+      // Clear any errors when entering preview mode
+      setError('');
+      // Toggle preview state
+      setIsPreview(!isPreview);
+    } catch (err) {
+      console.error('Error toggling preview:', err);
+      setError('Failed to generate preview. Please try again.');
+    }
   };
 
   // Clear saved draft from localStorage
@@ -396,11 +451,432 @@ export default function NewArticlePage() {
           </div>        )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Rest of the form content */}
+        {!isPreview ? (
+          <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Main content area - 2/3 width on desktop */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Title field */}
+                <div>
+                  <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    placeholder="Article title"
+                    className="block w-full px-4 py-3 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                    required
+                  />
+                </div>
+                
+                {/* Slug field */}
+                <div>
+                  <label htmlFor="slug" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    URL Slug
+                  </label>
+                  <div className="flex">
+                    <span className="inline-flex items-center px-4 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-r-0 border-gray-300 dark:border-gray-600 rounded-l-lg">
+                      /articles/
+                    </span>                  <input
+                      type="text"
+                      id="slug"
+                      name="slug"
+                      value={formData.slug}
+                      onChange={handleChange}
+                      onBlur={(e) => {
+                        // Normalize the slug on blur to ensure it's valid
+                        const normalizedSlug = normalizeSlug(e.target.value);
+                        if (normalizedSlug !== formData.slug) {
+                          setFormData({
+                            ...formData,
+                            slug: normalizedSlug
+                          });
+                        }
+                      }}
+                      placeholder="article-url-slug"
+                      className="block w-full px-4 py-3 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-r-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                      required
+                    />
+                  </div>
+                </div>
+                
+                {/* Content field */}
+                <div>
+                  <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Content (Markdown supported)
+                  </label>
+                  <textarea
+                    id="content"
+                    name="content"
+                    value={formData.content}
+                    onChange={handleChange}
+                    rows={20}
+                    placeholder="Write your article content here... (Markdown is supported)"
+                    className="block w-full px-4 py-3 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 font-mono text-sm"
+                    required
+                  ></textarea>
+                </div>
+                
+                {/* Excerpt field */}
+                <div>
+                  <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Excerpt <span className="text-gray-500 dark:text-gray-400">(optional)</span>
+                  </label>
+                  <textarea
+                    id="excerpt"
+                    name="excerpt"
+                    value={formData.excerpt}
+                    onChange={handleChange}
+                    rows={3}
+                    placeholder="Short summary of the article (if left empty, one will be generated automatically)"
+                    className="block w-full px-4 py-3 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                  ></textarea>
+                </div>
+              </div>
+              
+              {/* Sidebar - 1/3 width on desktop */}
+              <div className="space-y-6">
+                {/* Article Status */}
+                <div>
+                  <label htmlFor="status" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Status
+                  </label>
+                  <select
+                    id="status"
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-3 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                  >
+                    <option value="draft">Draft - Save without publishing</option>
+                    <option value="published">Published - Visible to everyone</option>
+                  </select>
+                </div>
+                
+                {/* Category field */}
+                <div>
+                  <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Category
+                  </label>
+                  <div className="flex items-center">
+                    <FaFolder className="text-gray-400 mr-2" />
+                    <select
+                      id="category"
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                      className="block w-full px-4 py-3 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                    >
+                      {categories.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                
+                {/* Featured Image field */}
+                <div>
+                  <label htmlFor="coverImage" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Featured Image URL <span className="text-gray-500 dark:text-gray-400">(optional)</span>
+                  </label>
+                  <div className="flex items-center">
+                    <FaImage className="text-gray-400 mr-2" />
+                    <input
+                      type="url"
+                      id="coverImage"
+                      name="coverImage"
+                      value={formData.coverImage}
+                      onChange={handleChange}
+                      placeholder="https://example.com/image.jpg"
+                      className="block w-full px-4 py-3 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+                
+                {/* Tags field */}
+                <div>
+                  <label htmlFor="tags" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Tags <span className="text-gray-500 dark:text-gray-400">(comma-separated)</span>
+                  </label>
+                  <div className="flex items-center">
+                    <FaHashtag className="text-gray-400 mr-2" />
+                    <input
+                      type="text"
+                      id="tags"
+                      name="tags"
+                      value={formData.tags}
+                      onChange={handleChange}
+                      placeholder="technology, news, review"
+                      className="block w-full px-4 py-3 text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+                
+                {/* SEO section */}
+                <div className="border border-gray-200 dark:border-gray-700 p-4 rounded-md">
+                  <h3 className="text-md font-medium text-gray-900 dark:text-white mb-3">SEO Settings</h3>
+                  
+                  <div className="space-y-4">
+                    {/* Meta Description */}
+                    <div>
+                      <label htmlFor="metaDescription" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        Meta Description <span className="text-gray-500 dark:text-gray-400">(optional)</span>
+                      </label>
+                      <textarea
+                        id="metaDescription"
+                        name="metaDescription"
+                        value={formData.metaDescription}
+                        onChange={handleChange}
+                        rows={2}
+                        placeholder="SEO description for search engines"
+                        className="block w-full px-3 py-2 text-sm text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                      ></textarea>
+                    </div>
+                    
+                    {/* Meta Keywords */}
+                    <div>
+                      <label htmlFor="metaKeywords" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        Meta Keywords <span className="text-gray-500 dark:text-gray-400">(comma-separated)</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="metaKeywords"
+                        name="metaKeywords"
+                        value={formData.metaKeywords}
+                        onChange={handleChange}
+                        placeholder="keyword1, keyword2, keyword3"
+                        className="block w-full px-3 py-2 text-sm text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Action Buttons */}
+                <div className="flex flex-col space-y-3">
+                  <button
+                    type="submit"
+                    disabled={isSaving}
+                    className="inline-flex justify-center items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow hover:shadow-lg transition-colors"
+                  >
+                    {isSaving ? (
+                      <>
+                        <div className="animate-spin mr-2 h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                        <span>Saving...</span>
+                      </>
+                    ) : (
+                      <>
+                        <FaSave className="mr-2" />
+                        <span>Save {formData.status === 'published' ? 'and Publish' : 'Draft'}</span>
+                      </>
+                    )}
+                  </button>
+                  
+                  <button
+                    type="button"
+                    onClick={togglePreview}
+                    className="inline-flex justify-center items-center px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors"
+                  >
+                    <FaEye className="mr-2" />
+                    <span>Preview</span>
+                  </button>
+                  
+                  <button
+                    type="button"
+                    onClick={clearSavedDraft}
+                    className="inline-flex justify-center items-center px-6 py-3 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 font-medium rounded-lg transition-colors"
+                  >
+                    <FaTimes className="mr-2" />
+                    <span>Clear Draft</span>
+                  </button>
+                  
+                  <label className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={autosaveEnabled}
+                      onChange={toggleAutosave}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                      Enable autosave
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </form>
+        ) : (
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700">
+            {/* Preview Header with Back button */}
+            <div className="bg-gray-50 dark:bg-gray-700 px-6 py-4 -mx-6 -mt-6 mb-6 rounded-t-xl border-b border-gray-200 dark:border-gray-600 flex items-center justify-between">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-white">Article Preview</h2>
+              <button
+                onClick={togglePreview}
+                className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+              >
+                <FaArrowLeft className="mr-2" />
+                Back to Editor
+              </button>
+            </div>
+            
+            {/* Article Preview Content */}
+            <div className="overflow-y-auto max-h-[calc(100vh-12rem)]">
+              <div className="max-w-4xl mx-auto">
+                {/* Category */}
+                <div className="mb-4">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300">
+                    {formData.category || 'Uncategorized'}
+                  </span>
+                </div>
+                
+                {/* Title */}
+                <h1 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white">
+                  {formData.title}
+                </h1>
+                
+                {/* Author info */}
+                <div className="flex items-center mb-6">
+                  <div className="rounded-full bg-gray-300 dark:bg-gray-600 w-10 h-10 flex items-center justify-center text-gray-600 dark:text-gray-300 mr-3">
+                    {session?.user?.name?.charAt(0) || 'A'}
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900 dark:text-white">{session?.user?.name || 'Admin User'}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Just now (Preview)</p>
+                  </div>
+                </div>
+                
+                {/* Featured image */}
+                {formData.coverImage && (
+                  <div className="relative w-full h-96 mb-8 rounded-lg overflow-hidden">
+                    <Image
+                      src={formData.coverImage}
+                      alt={formData.title}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      onError={(e) => {
+                        // If image fails to load, show placeholder
+                        e.currentTarget.src = "https://via.placeholder.com/1200x800?text=Image+Not+Found";
+                      }}
+                    />
+                  </div>
+                )}
+                
+                {/* Content */}
+                <div className="prose prose-lg dark:prose-invert max-w-none mb-8">
+                  <Markdown>{formData.content}</Markdown>
+                </div>
+                
+                {/* Tags */}
+                {formData.tags && (
+                  <div className="mb-8">
+                    <div className="flex flex-wrap gap-2">
+                      {formData.tags.split(',').map((tag, index) => (
+                        <span 
+                          key={index}
+                          className="bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full text-sm"
+                        >
+                          #{tag.trim()}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </form>
+        )}
+        
+        {/* Preview Modal - Article content preview */}
+        {isPreview && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-3xl w-full max-h-[90vh] overflow-auto">
+              {/* Modal header */}
+              <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Article Preview
+                </h2>
+                <button
+                  onClick={togglePreview}
+                  className="text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                >
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 000-16 8 8 000 16zm3.707-9.293a1 1 000-1.414-1.414L9 10.586 7.707 9.293a1 1 00-1.414 1.414l2 2a1 1 001.414 0l4-4z" clipRule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Modal content - Article preview that matches the published view */}
+              <div className="p-6 overflow-y-auto">
+                <div className="max-w-3xl mx-auto">
+                  {/* Category tag */}
+                  <div className="mb-4">
+                    <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-xs font-medium">
+                      {formData.category}
+                    </span>
+                  </div>
+                  
+                  {/* Title */}
+                  <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+                    {formData.title}
+                  </h1>
+
+                  {/* Author info */}
+                  <div className="flex items-center mb-8">
+                    <div className="rounded-full bg-gray-300 dark:bg-gray-600 w-10 h-10 flex items-center justify-center text-gray-600 dark:text-gray-300 mr-3">
+                      {session?.user?.name?.charAt(0) || 'A'}
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900 dark:text-white">{session?.user?.name || 'Admin User'}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Draft Preview</p>
+                    </div>
+                  </div>
+
+                  {/* Featured image */}
+                  {formData.coverImage && (
+                    <div className="relative w-full h-80 mb-8 rounded-lg overflow-hidden">
+                      <Image
+                        src={formData.coverImage}
+                        alt={formData.title}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        onError={(e) => {
+                          // If image fails to load, show placeholder
+                          e.currentTarget.src = "https://via.placeholder.com/1200x800?text=Image+Not+Found";
+                        }}
+                      />
+                    </div>
+                  )}
+                  
+                  {/* Content */}
+                  <article className="prose prose-lg dark:prose-invert max-w-none mb-8">
+                    <Markdown>{formData.content}</Markdown>
+                  </article>
+                  
+                  {/* Tags */}
+                  {formData.tags && (
+                    <div className="mb-8">
+                      <div className="flex flex-wrap gap-2">
+                        {formData.tags.split(',').map((tag, index) => (
+                          <span 
+                            key={index}
+                            className="bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full text-sm"
+                          >
+                            #{tag.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

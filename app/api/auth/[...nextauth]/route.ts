@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
 import { User } from "@/app/models/schema";
-import { connectToDatabase } from "@/app/lib/mongodb";
+import connectToDatabase from "@/app/lib/mongodb";
 
 export const authOptions: NextAuthOptions = {
   providers: [

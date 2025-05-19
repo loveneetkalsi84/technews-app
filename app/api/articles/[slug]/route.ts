@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Article } from "@/app/models/schema";
-import { connectToDatabase } from "@/app/lib/mongodb";
+import connectToDatabase from "@/app/lib/mongodb";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -13,19 +13,71 @@ interface Params {
 // GET single article by slug
 export async function GET(request: NextRequest, { params }: Params) {
   try {
-    const { slug } = params;
+    let { slug } = params;
+    
+    // Normalize the slug before searching (optional, but helps with consistency)
+    const normalizedSlug = slug.toLowerCase().trim();
+    if (normalizedSlug !== slug) {
+      console.log(`API: Normalized slug from "${slug}" to "${normalizedSlug}"`);
+      slug = normalizedSlug;
+    }
+    
+    console.log(`API: Fetching article with slug: ${slug}`);
     
     // Connect to the database
-    await connectToDatabase();
-    
-    // Find the article
-    const article = await Article.findOne({ slug })
-      .populate("author", "name image")
+    await connectToDatabase();    // Find the article first with exact case match, then with case-insensitive if needed
+    let article = await Article.findOne({ 
+      slug: slug // Exact match first
+    })
+      .populate("author", "name image bio")
       .populate("category", "name slug");
     
+    // If not found with exact match, try case-insensitive
     if (!article) {
+      console.log(`API: Article not found with exact match, trying case-insensitive for: "${slug}"`);
+      article = await Article.findOne({ 
+        slug: new RegExp(`^${slug}$`, 'i') // Case-insensitive match
+      })
+        .populate("author", "name image bio")
+        .populate("category", "name slug");
+    }
+    
+    console.log(`API: Article lookup result:`, article ? `Found: ${article.slug}` : "Not found");
+      if (!article) {
+      console.log(`API: Article with slug "${slug}" not found`);
+      
+      // For debugging, list all articles to see what's available
+      if (process.env.NODE_ENV === 'development') {
+        try {
+          const allArticles = await Article.find({}, 'title slug');
+          console.log(`API: Available articles (${allArticles.length} total):`);
+          allArticles.slice(0, 10).forEach((a, i) => {
+            console.log(`  ${i+1}. ${a.title} (${a.slug})`);
+          });
+          if (allArticles.length > 10) {
+            console.log(`  ... and ${allArticles.length - 10} more`);
+          }
+        } catch (err) {
+          console.error('Error listing articles:', err);
+        }
+      }
+      
       return NextResponse.json(
-        { error: "Article not found" },
+        { error: "Article not found", slug: slug },
+        { status: 404 }
+      );
+    }
+      // Double check that the slug matches exactly (case sensitive)
+    if (article.slug !== slug) {
+      console.error(`API: Slug mismatch: requested "${slug}" but found "${article.slug}"`);
+      console.error(`API: Article full data: ${JSON.stringify({
+        article_id: article._id,
+        article_slug: article.slug,
+        article_title: article.title,
+        requested_slug: slug
+      })}`);
+      return NextResponse.json(
+        { error: "Article slug mismatch", requested: slug, found: article.slug },
         { status: 404 }
       );
     }
@@ -33,6 +85,8 @@ export async function GET(request: NextRequest, { params }: Params) {
     // Increment view count
     article.viewCount += 1;
     await article.save();
+    
+    console.log(`API: Successfully returned article: ${article.title} (${article.slug})`);
     
     return NextResponse.json(article);
   } catch (error) {

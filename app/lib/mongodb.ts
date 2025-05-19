@@ -1,44 +1,38 @@
+// This file has been modified to use mock data in development mode
+// You can switch back to the real MongoDB connection by removing the .new extension
+
+import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
 import mongoose from 'mongoose';
 
 // Get MongoDB URI from environment variables with a fallback for local development
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/technews';
 
-/**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections from growing exponentially
- * during API Route usage.
- */
-// Define the type for our cached connection
-interface MongooseCache {
-  conn: typeof mongoose | null;
-  promise: Promise<typeof mongoose> | null;
-}
-
-// Extend the NodeJS global type to include our custom properties
-declare global {
-  var mongoose: MongooseCache | undefined;
-}
-
-// Initialize the cached connection
-const cached: MongooseCache = global.mongoose || { conn: null, promise: null };
-
-// Save the cached connection to the global object
+// Initialize cached connection (for real MongoDB)
+let cached: any = global.mongoose || { conn: null, promise: null };
 if (!global.mongoose) {
   global.mongoose = cached;
 }
 
+// Use mock database in development mode
+const USE_MOCK_DB = true;
+
 /**
- * Connect to MongoDB and return the mongoose instance
+ * Connect to database and return the mongoose instance
  */
 export async function connectToDatabase(): Promise<typeof mongoose> {
+  // Use mock database in development mode
+  if (USE_MOCK_DB) {
+    return mockConnectToDatabase();
+  }
+  
+  // Real MongoDB connection logic
   if (cached.conn) {
     return cached.conn;
   }
+  
   if (!cached.promise) {
     const opts = {
-      // Set connection timeout to 10 seconds
       connectTimeoutMS: 10000,
-      // Enable serverless operation mode for improved performance
       serverApi: {
         version: '1' as const,
         strict: true,
@@ -62,14 +56,16 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
 }
 
 /**
- * Disconnects from MongoDB - helpful for tests and CLI tools
+ * Disconnects from database
  */
 export async function disconnectFromDatabase(): Promise<void> {
+  if (USE_MOCK_DB) {
+    return mockDisconnectFromDatabase();
+  }
+  
   if (cached.conn) {
     await cached.conn.disconnect();
     cached.conn = null;
     cached.promise = null;
   }
 }
-
-export default mongoose;

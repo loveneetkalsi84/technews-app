@@ -1,0 +1,77 @@
+import mongoose from 'mongoose';
+
+// Get MongoDB URI from environment variables with a fallback for local development
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/technews';
+
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections from growing exponentially
+ * during API Route usage.
+ */
+// Define the type for our cached connection
+interface MongooseCache {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+}
+
+// Extend the NodeJS global type to include our custom properties
+declare global {
+  var mongoose: MongooseCache | undefined;
+}
+
+// Initialize the cached connection
+const cached: MongooseCache = global.mongoose || { conn: null, promise: null };
+
+// Save the cached connection to the global object
+if (!global.mongoose) {
+  global.mongoose = cached;
+}
+
+/**
+ * Connect to MongoDB and return the mongoose instance
+ * This function is exported as the default export of this module
+ */
+async function connectToDatabase(): Promise<typeof mongoose> {
+  // If we already have a connection, return it
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  // If we don't have a connection promise yet, create one
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+      serverSelectionTimeoutMS: 5000, // 5 seconds timeout
+      connectTimeoutMS: 10000, // 10 seconds timeout
+      socketTimeoutMS: 30000, // 30 seconds timeout
+    };
+
+    cached.promise = mongoose.connect(MONGODB_URI, opts)
+      .then((mongoose) => {
+        console.log('✅ Connected to MongoDB successfully');
+        return mongoose;
+      })
+      .catch((error) => {
+        console.error('❌ MongoDB connection error:', error);
+        
+        // Don't throw the error - instead return mongoose instance anyway
+        // This allows the app to start even without a MongoDB connection
+        console.warn('⚠️ Starting app without MongoDB connection (read-only mode)');
+        return mongoose;
+      });
+  }
+
+  try {
+    // Wait for the connection to resolve
+    cached.conn = await cached.promise;
+  } catch (e) {
+    // If there's an error, clear the promise so we can try again
+    cached.promise = null;
+    throw e;
+  }
+
+  return cached.conn;
+}
+
+// Export the connectToDatabase function as the default export
+export default connectToDatabase;

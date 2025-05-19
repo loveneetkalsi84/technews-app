@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Article } from "@/app/models/schema";
-import { connectToDatabase } from "@/app/lib/mongodb";
+import connectToDatabase from "@/app/lib/mongodb";
 
 // Test article creation via POST request
 export async function POST(request: NextRequest) {
@@ -16,14 +16,13 @@ export async function POST(request: NextRequest) {
       title: data.title || "Test Article " + new Date().toISOString(),
       slug: data.slug || "test-article-" + Date.now(),
       content: data.content || "This is a test article created via API.",
-      excerpt: data.excerpt || "Test excerpt",
-      author: "admin",
+      excerpt: data.excerpt || "Test excerpt",      author: "admin",
       category: data.category || "News",
       tags: data.tags || [],
       isPublished: data.status === "published",
       publishedAt: data.status === "published" ? new Date() : null,
       viewCount: 0,
-      sourceType: 'api-test',
+      sourceType: 'manual', // Using a valid enum value from schema
       isAIGenerated: false
     });
     

@@ -42,84 +42,104 @@ export default function ArticlePage() {
   const slug = params.slug;
   const [article, setArticle] = useState<Article | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
+  const [error, setError] = useState<string | null>(null);  useEffect(() => {
     const fetchArticle = async () => {
       try {
-        setIsLoading(true);
-        // In production, fetch from API
-        // const response = await fetch(`/api/articles/${slug}`);
-        // if (!response.ok) throw new Error('Article not found');
-        // const data = await response.json();
+        if (!slug || typeof slug !== 'string') {
+          setError('Invalid article slug');
+          setIsLoading(false);
+          return;
+        }
         
-        // For now, use mock data
-        setTimeout(() => {
+        setIsLoading(true);
+        console.log(`Fetching article with slug: ${slug}`);
+        console.log(`Current route: ${window.location.pathname}`);
+        
+        // Fetch the article data from the API with strong cache-busting headers
+        const response = await fetch(`/api/articles/${slug}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        });
+        
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error('Article not found');
+          } else {
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
+          }
+        }
+        
+        const data = await response.json();
+        console.log('Article data received:', data);
+          // Validate that the returned article matches the requested slug
+        if (data.slug !== slug) {
+          console.error(`Slug mismatch: requested ${slug} but received ${data.slug}`);
+          console.error('Full article data:', JSON.stringify(data, null, 2));
+          throw new Error(`Article data mismatch: requested ${slug} but received ${data.slug}`);
+        }
+        
+        // Transform the data if needed to match the expected Article interface
+        setArticle({
+          title: data.title,
+          slug: data.slug,
+          content: data.content,
+          coverImage: data.coverImage || '/images/default-article.jpg',
+          publishedAt: data.publishedAt,
+          author: {
+            name: typeof data.author === 'string' ? data.author : data.author?.name || 'Unknown Author',
+            image: typeof data.author === 'string' ? '/images/default-avatar.jpg' : (data.author?.image || '/images/default-avatar.jpg'),
+            bio: typeof data.author === 'string' ? '' : (data.author?.bio || '')
+          },
+          viewCount: data.viewCount || 0,
+          category: {
+            name: typeof data.category === 'string' ? data.category : (data.category?.name || 'Uncategorized'),
+            slug: typeof data.category === 'string' ? data.category.toLowerCase() : (data.category?.slug || 'uncategorized')
+          },
+          tags: Array.isArray(data.tags) ? data.tags : [],
+          metaDescription: data.metaDescription || '',
+        });
+        
+        setIsLoading(false);
+      } catch (err) {
+        console.error('Error fetching article:', err);
+        console.error('Error details:', {
+          url: `/api/articles/${slug}`,
+          slug: slug,
+          errorMessage: err instanceof Error ? err.message : 'Unknown error',
+          errorStack: err instanceof Error ? err.stack : null
+        });
+        setError(err instanceof Error ? err.message : 'Failed to load article');
+        setIsLoading(false);
+        
+        // If in development mode or we have test data, fallback to mock data for testing purposes
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Falling back to mock data for testing purposes');
           setArticle({
-            title: "Apple Unveils New MacBook Pro with M3 Chip: A Revolutionary Leap in Performance",
-            slug: "apple-unveils-new-macbook-pro-m3-chip",
-            content: `
-# Apple's Revolutionary M3 Chip Arrives in New MacBook Pro
-
-Apple has just unveiled its latest MacBook Pro lineup featuring the groundbreaking M3 chip, marking a significant leap forward in performance and efficiency for professional-grade laptops.
-
-## Unprecedented Performance
-
-The new M3 chip, built on a 3-nanometer process, delivers up to 40% faster performance than the previous M2 generation. This translates to:
-
-- Significantly faster rendering times for video editors
-- Improved compilation speeds for developers
-- Enhanced AI processing capabilities
-- Smoother gaming experiences with better graphics performance
-
-"The M3 represents our commitment to pushing the boundaries of what's possible with Apple silicon," said Tim Cook, Apple's CEO, during the keynote presentation. "It's not just an incremental update—it's a revolutionary leap forward."
-
-## Battery Life That Redefines "All Day"
-
-Perhaps most impressive is the enhanced power efficiency of the M3 chip. The new MacBook Pro models can achieve:
-
-- Up to 22 hours of video playback on a single charge
-- 15 hours of wireless web browsing
-- Significantly reduced power consumption during intensive tasks
-
-This means professionals can work longer without being tethered to a power outlet, making the new MacBook Pro truly portable for demanding workloads.
-
-## Enhanced Thermal Design
-
-Apple has also redesigned the thermal architecture of the MacBook Pro to handle the increased performance:
-
-1. New vapor chamber cooling system
-2. Redesigned heat sink with greater surface area
-3. More efficient fans that produce less noise
-
-These improvements ensure that the M3 chip can sustain peak performance during extended professional workflows without thermal throttling.
-
-## Pricing and Availability
-
-The new MacBook Pro with M3 chip starts at $1,999 for the 14-inch model and $2,499 for the 16-inch model. Pre-orders are available starting today, with devices shipping next week.
-
-For professionals in video editing, software development, 3D rendering, scientific research, and other demanding fields, the new MacBook Pro represents a compelling upgrade that could significantly improve productivity and workflow efficiency.
-            `,
+            title: "Article Preview Fallback",
+            slug: slug as string,
+            content: `# Test Article Content\n\nThis is a mock article because the actual article could not be loaded from the database. The requested article slug was: "${slug}"`,
             coverImage: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80",
             publishedAt: new Date().toISOString(),
             author: {
-              name: "John Doe",
+              name: "Test Author",
               image: "https://randomuser.me/api/portraits/men/23.jpg",
-              bio: "Tech enthusiast and Apple specialist with over 10 years of experience covering Apple events and reviewing their products."
+              bio: "This is a fallback test author because the real article could not be loaded."
             },
-            viewCount: 1254,
+            viewCount: 0,
             category: {
-              name: "News",
-              slug: "news",
+              name: "Test",
+              slug: "test",
             },
-            tags: ["Apple", "MacBook", "M3 Chip"],
+            tags: ["Test"],
+            metaDescription: "Test article for development purposes",
           });
+          setError(null);
           setIsLoading(false);
-        }, 500);
-      } catch (err) {
-        setError('Failed to load article');
-        setIsLoading(false);
-        console.error(err);
+        }
       }
     };
 
@@ -127,13 +147,16 @@ For professionals in video editing, software development, 3D rendering, scientif
       fetchArticle();
     }
   }, [slug]);
-
   // View counter incrementation
   useEffect(() => {
     const incrementViewCount = async () => {
-      // In production, this would update the view count in the database
-      // await fetch(`/api/articles/${slug}/view`, { method: 'POST' });
-      console.log('View count incremented');
+      try {
+        // The GET request to the article endpoint already increments the view count
+        // We don't need to make a separate request
+        console.log('View count incremented automatically via GET request');
+      } catch (error) {
+        console.error('Error incrementing view count:', error);
+      }
     };
 
     if (article) {

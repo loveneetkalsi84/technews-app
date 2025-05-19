@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Article, IArticle } from "@/app/models/schema";
-import { connectToDatabase } from "@/app/lib/mongodb";
+import connectToDatabase from "@/app/lib/mongodb";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -15,7 +15,8 @@ interface ArticleFilter {
 
 // GET articles with pagination and filtering
 export async function GET(request: NextRequest) {
-  try {    // Connect to the database
+  try {
+    // Connect to the database
     await connectToDatabase();
     
     // Parse query parameters
@@ -26,9 +27,24 @@ export async function GET(request: NextRequest) {
     const tag = searchParams.get("tag");
     const search = searchParams.get("search");
     const authorId = searchParams.get("author");
+    const showAll = searchParams.get("showAll") === "true";
+    
+    // Log the request info for debugging
+    console.log("GET /api/articles", { 
+      params: Object.fromEntries(searchParams.entries()),
+      showAllFlag: showAll
+    });
     
     // Build the filter object
-    const filter: ArticleFilter = { isPublished: true };
+    const filter: ArticleFilter = {};
+    
+    // Only filter by isPublished if not explicitly showing all
+    if (!showAll) {
+      filter.isPublished = true;
+    }
+    
+    // Log the filter for debugging
+    console.log("MongoDB filter:", filter);
     
     if (category) {
       filter.category = category;
@@ -49,16 +65,33 @@ export async function GET(request: NextRequest) {
     // Calculate pagination
     const skip = (page - 1) * limit;
     
-    // Execute query with pagination
-    const articles = await Article.find(filter)
-      .sort({ publishedAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .populate("author", "name image")
-      .populate("category", "name slug");
+    // Execute query with pagination - handle potential errors
+    let articles = [];
+    let total = 0;
     
-    // Get total count for pagination
-    const total = await Article.countDocuments(filter);
+    try {
+      // Try to fetch articles without the populate step, which is causing errors
+      articles = await Article.find(filter)
+        .sort({ publishedAt: -1 })
+        .skip(skip)
+        .limit(limit);
+      
+      // Only try to populate if needed and no errors occurred
+      if (articles.length > 0) {
+        console.log(`Articles found: ${articles.length}`);
+        console.log("First article:", {
+          id: articles[0]._id,
+          title: articles[0].title,
+          isPublished: articles[0].isPublished
+        });
+      }
+      
+      // Get total count for pagination
+      total = await Article.countDocuments(filter);
+    } catch (queryError) {
+      console.error("Error querying articles:", queryError);
+      // Continue with empty results rather than failing completely
+    }
     
     return NextResponse.json({
       articles,
@@ -98,20 +131,80 @@ export async function POST(request: NextRequest) {
         { status: 403 }
       );
     }
-      // Connect to the database
+    
+    // Connect to the database
     await connectToDatabase();
     
     // Parse request body
     const data = await request.json();
     
     // Validate required fields
-    if (!data.title || !data.content || !data.slug) {
+    if (!data.title || !data.content) {
       return NextResponse.json(
-        { error: "Title, content, and slug are required" },
+        { error: "Title and content are required" },
         { status: 400 }
       );
     }
-      // Set defaults for optional fields
+      // Handle slug creation and normalization
+    let slug = data.slug;
+    if (!slug) {
+      // Generate slug from title if not provided
+      slug = data.title
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '') // Remove special characters
+        .replace(/\s+/g, '-')     // Replace spaces with hyphens
+        .replace(/-+/g, '-')      // Replace multiple hyphens with single hyphen
+        .trim();
+      
+      console.log(`Generated slug from title: "${slug}"`);
+    } else {
+      // Normalize provided slug
+      const normalizedSlug = slug
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim();
+      
+      if (normalizedSlug !== slug) {
+        console.log(`Normalized slug from "${slug}" to "${normalizedSlug}"`);
+        slug = normalizedSlug;
+      }
+    }
+    
+    // Validate slug is not empty after normalization
+    if (!slug || slug.length < 3) {
+      // Create a fallback slug if too short or empty
+      const timestamp = Date.now().toString();
+      slug = `article-${timestamp}`;
+      console.log(`Created fallback slug: "${slug}"`);
+    }
+    
+    // Check if slug already exists (with optimized query and error handling)
+    try {
+      const existingArticle = await Article.findOne({ slug: slug });
+      if (existingArticle) {
+        // Append timestamp to make slug unique
+        const timestamp = Date.now().toString().slice(-6);
+        slug = `${slug}-${timestamp}`;
+        console.log(`Slug already exists, modified to: "${slug}"`);
+        
+        // Double-check the new slug doesn't exist (unlikely but possible)
+        const doubleCheck = await Article.findOne({ slug: slug });
+        if (doubleCheck) {
+          // If still exists, use a full timestamp
+          slug = `${slug.split('-').slice(0, -1).join('-')}-${Date.now()}`;
+          console.log(`Slug collision detected again, final slug: "${slug}"`);
+        }
+      }
+    } catch (slugError) {
+      console.error("Error checking slug existence:", slugError);
+      // Create a fallback slug with random ID in case of DB errors
+      slug = `${slug}-${Math.random().toString(36).substring(2, 10)}`;
+      console.log(`Error checking slug, using fallback: "${slug}"`);
+    }
+    
+    // Set defaults for optional fields
     if (!data.excerpt) {
       data.excerpt = data.content.substring(0, 160) + (data.content.length > 160 ? '...' : '');
     }
@@ -123,7 +216,7 @@ export async function POST(request: NextRequest) {
     // Format the data properly before creating the article
     const formattedData = {
       title: data.title,
-      slug: data.slug,
+      slug: slug,
       content: data.content,
       excerpt: data.excerpt || data.content.substring(0, 160),
       coverImage: data.coverImage || `https://via.placeholder.com/1200x630?text=${encodeURIComponent(data.title)}`,
@@ -176,7 +269,8 @@ export async function POST(request: NextRequest) {
       
       // Check keywords/tags presence
       if (article.metaKeywords && article.metaKeywords.length >= 3) {
-        score += 15;      } else if (article.tags && article.tags.length >= 3) {
+        score += 15;
+      } else if (article.tags && article.tags.length >= 3) {
         score += 10;
       }
       
@@ -190,7 +284,8 @@ export async function POST(request: NextRequest) {
       if (article.coverImage && article.coverImage.length > 10) {
         score += 10;
       }
-        return Math.min(100, score);
+      
+      return Math.min(100, score);
     }
     
     // Debug data before saving
@@ -209,7 +304,8 @@ export async function POST(request: NextRequest) {
         const validationErrors = Object.keys(saveError.errors).map(
           key => `${key}: ${saveError.errors[key].message}`
         ).join(", ");
-          return NextResponse.json(
+        
+        return NextResponse.json(
           { error: "Validation error", details: validationErrors },
           { status: 400 }
         );

@@ -427,7 +427,8 @@ export default function UsersManagementPage() {
                       </tr>
                     ))
                   ) : (
-                    <tr>                      <td colSpan={5} className="px-6 py-10 text-center text-gray-500 dark:text-gray-400">
+                    <tr> 
+                      <td colSpan={5} className="px-6 py-10 text-center text-gray-500 dark:text-gray-400">
                         <div className="flex flex-col items-center">
                           <FaUser className="h-8 w-8 mb-3 text-gray-400" />
                           <p className="mb-1 text-base">No users found</p>
@@ -436,10 +437,10 @@ export default function UsersManagementPage() {
                       </td>                    </tr>
                   )}
                 </tbody>
-              </table>            </div>
+              </table>            
+              </div>
           </div>
         </div>
-      </div>
-    </div>
+
   );
 }

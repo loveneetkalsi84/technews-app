@@ -9,9 +9,14 @@ Write-Host "=================================================" -ForegroundColor 
 
 # Path to the mock database implementation file
 $mockDbPath = "c:\xampp\htdocs\TechNews\technews-app\app\lib\mock-mongodb.ts"
+$mongoDbPath = "c:\xampp\htdocs\TechNews\technews-app\app\lib\mongodb.ts"
 
-# Create the mock database file
-@"
+# Check if the mock database file already exists
+if (Test-Path $mockDbPath) {
+    Write-Host "✅ Mock database implementation already exists at $mockDbPath" -ForegroundColor Green
+} else {
+    # Create the mock database file
+    @"
 // This is a mock implementation of MongoDB connections for development
 // It allows the application to run without an actual MongoDB connection
 
@@ -214,8 +219,30 @@ if (Test-Path $mockWrapperPath) {
     Write-Host "Replaced mongodb.ts with mock implementation" -ForegroundColor Green
 }
 
+# Update USE_MOCK_DB flag in the mongodb.ts file
+if (Test-Path $mongoDbPath) {
+    $content = Get-Content $mongoDbPath -Raw
+    if ($content -match "const USE_MOCK_DB = (false|true)") {
+        $updatedContent = $content -replace "const USE_MOCK_DB = (false|true)", "const USE_MOCK_DB = true"
+        Set-Content $mongoDbPath -Value $updatedContent
+        Write-Host "✅ Successfully set USE_MOCK_DB flag to true in mongodb.ts" -ForegroundColor Green
+    } else {
+        Write-Host "❌ Could not find USE_MOCK_DB flag in mongodb.ts" -ForegroundColor Red
+    }
+} else {
+    Write-Host "❌ mongodb.ts file not found" -ForegroundColor Red
+}
+
+# Set environment variable for mock DB
+[Environment]::SetEnvironmentVariable("USE_MOCK_DB", "true", "Process")
+Write-Host "✅ Set environment variable USE_MOCK_DB=true" -ForegroundColor Green
+
 Write-Host "=================================================" -ForegroundColor Cyan
 Write-Host " Mock database setup complete!" -ForegroundColor Cyan
+Write-Host " You can now run the application without MongoDB" -ForegroundColor Green
+Write-Host " Run 'npm run dev' to start the development server" -ForegroundColor Yellow
+Write-Host " Run 'npm run test:article-features' to run article tests" -ForegroundColor Yellow
+Write-Host "=================================================" -ForegroundColor Cyan
 Write-Host "=================================================" -ForegroundColor Cyan
 Write-Host "You can now start your Next.js application with mock data:" -ForegroundColor Yellow
 Write-Host "cd c:\xampp\htdocs\TechNews\technews-app && .\start-dev-server.ps1" -ForegroundColor Yellow

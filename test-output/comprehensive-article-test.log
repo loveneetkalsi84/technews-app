@@ -1,0 +1,32 @@
+
+╔════════════════════════════════════════════════════╗
+║  COMPREHENSIVE ARTICLE RENDERING VERIFICATION      ║
+╚════════════════════════════════════════════════════╝
+
+Starting verification at: 19/5/2025, 10:33:11 pm
+Base URL: http://localhost:3000
+Screenshots folder: C:\xampp\htdocs\TechNews\technews-app\test-output\screenshots
+Log file: C:\xampp\htdocs\TechNews\technews-app\test-output\comprehensive-article-test.log
+
+Launching browser...
+Browser launched successfully.
+
+
+🔍 Testing article with slug: "getting-started-with-nextjs"
+   Loading: http://localhost:3000/articles/getting-started-with-nextjs
+   📸 Screenshot saved: 1747674195056-error-getting-started-with-nextjs.png
+❌ FAILED: Article "getting-started-with-nextjs" - HTTP Status Check: Received status 500 instead of 200
+
+Browser closed.
+
+========== TEST SUMMARY ==========
+Total tests: 1
+Passed: 0
+Failed: 2
+=================================
+
+Failed tests:
+- Article "getting-started-with-nextjs" - HTTP Status Check: Received status 500 instead of 200
+  Screenshot: 1747674195056-error-getting-started-with-nextjs.png
+
+Verification completed at: 19/5/2025, 10:33:15 pm

@@ -29,18 +29,29 @@ Reorganized test files into structured directories:
 Implemented several verification tools to test all aspects of articles:
 
 - `verify-article-rendering.js`: Tests article rendering across all entry points
+- `verify-article-rendering-comprehensive.js`: Tests rendering with all case and special character variations
+- `quick-verify-article-rendering.js`: Simplified test that works without MongoDB
 - `verify-slug-fix.js`: Specifically tests the slug handling improvements
+- `verify-slug-handling.js`: Comprehensive test for all slug handling cases
 - `verify-article-links.js`: Tests all article link functionality throughout the application
+- `verify-article-links-mock.js`: Tests article links with the mock database
 
-### 4. Test Runner Script
+### 4. Mock Database
 
-Created an automated test runner (`run-tests.ps1`) that:
+Created a mock MongoDB implementation that:
 
-- Checks prerequisites (MongoDB running, application running)
-- Sets up the test environment
-- Runs tests across different categories
-- Provides a summary of test results
-- Supports running specific test groups via environment variables
+- Allows testing without a real MongoDB connection
+- Includes sample test data for users and articles
+- Simulates all necessary MongoDB methods
+- Can be easily enabled/disabled with scripts
+
+### 5. Test Runner Scripts
+
+Created multiple test runners:
+
+- `run-tests.ps1`: Main test runner for all tests
+- `test-article-features.ps1`: Specialized runner for article features with mock database
+- `enable-mock-db.ps1` and `disable-mock-db.ps1`: Tools to toggle mock database usage
 
 ## How to Run Tests
 
@@ -110,6 +121,58 @@ The article link tests (`verify-article-links.js`) verify:
 5. Share links on article pages
 6. Related article links
 7. Search results links
+
+## Mock Database Testing
+
+The mock database implementation allows for comprehensive testing without requiring a running MongoDB instance. This is particularly useful for:
+
+1. Development environments where MongoDB is not easily available
+2. CI/CD pipelines where database setup would be complex
+3. Consistent testing with known test data
+4. Faster test execution without database overhead
+
+### How to Use Mock Database Testing
+
+#### Enable Mock Database
+
+```bash
+npm run enable-mock-db
+```
+
+#### Run Article Tests with Mock Database
+
+```bash
+npm run test:article-features
+```
+
+This runs a specialized test suite that includes:
+- Quick article rendering tests
+- Slug handling verification
+- Comprehensive article rendering tests
+- Article links verification
+
+#### Verify Links with Mock Database
+
+```bash
+npm run verify-mock-links
+```
+
+#### Disable Mock Database (return to real MongoDB)
+
+```bash
+npm run disable-mock-db
+```
+
+### Mock Database Content
+
+The mock database includes test data for:
+
+1. **Users**: Admin, editor, and regular user accounts
+2. **Articles**: Various articles with different slugs, including:
+   - Standard slugs (`getting-started-with-nextjs`)
+   - Capitalized slugs (`CSS-Variables-Modern-Styling`)
+   - Slugs with special characters (`special-characters-in-urls_a-technical-guide`)
+3. **Categories**: Basic category data
 
 ## Recommendations for Future Work
 

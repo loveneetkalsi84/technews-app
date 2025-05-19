@@ -151,11 +151,10 @@ function Start-ArticleTests {
     
     # Show detailed results
     Write-Host "`nDetailed Results:" -ForegroundColor Yellow
-    foreach ($test in $results.Tests) {
-        $status = if ($test.Success) { "✅ PASSED" } else { "❌ FAILED" }
+    foreach ($test in $results.Tests) {        $status = if ($test.Success) { "✅ PASSED" } else { "❌ FAILED" }
         $color = if ($test.Success) { "Green" } else { "Red" }
-        $critical = if ($test.Critical) { " (CRITICAL)" } else { "" }
-        Write-Host "$($test.Name)$critical: $status" -ForegroundColor $color
+        $criticalText = if ($test.Critical) { " (CRITICAL)" } else { "" }
+        Write-Host "$($test.Name)$criticalText`: $status" -ForegroundColor $color
     }
     
     if ($results.Failed -eq 0) {

@@ -20,7 +20,9 @@
     "test:articles": "powershell -Command \"$env:TEST_ARTICLES_ONLY=$true; ./run-tests.ps1\"",
     "test:integration": "powershell -Command \"$env:TEST_INTEGRATION_ONLY=$true; ./run-tests.ps1\"",
     "test:article-features": "powershell -File ./test-article-features.ps1",
-    "verify-all": "powershell -File ./verify-fix.ps1"
+    "verify-all": "powershell -File ./verify-fix.ps1",
+    "enable-mock-db": "powershell -File ./enable-mock-db.ps1",
+    "disable-mock-db": "powershell -File ./disable-mock-db.ps1"
   },
   "dependencies": {
     "@google-cloud/language": "^7.0.2",

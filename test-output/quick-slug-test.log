@@ -1,0 +1,2302 @@
+
+╔═══════════════════════════════════════════════╗
+║         QUICK ARTICLE SLUG CHECK              ║
+║     2025-05-19T17:02:37.267Z               ║
+╚═══════════════════════════════════════════════╝
+
+Launching browser...
+
+🔍 Finding articles from homepage:
+Browser console: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Browser console: info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+Browser console: log: [HMR] connected
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: log: [Fast Refresh] rebuilding
+No article links found on homepage after timeout
+Found 0 article links on homepage
+No article links found on homepage to test
+❌ FAILED: Find Articles from Homepage - No article links found on homepage
+
+🔍 Testing slug case insensitivity:
+No slugs found to test case insensitivity
+❌ FAILED: Slug Case Insensitivity - No slugs found to test
+
+🔍 Testing slugs with special characters:
+Testing modified slug: "test article with spaces"
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Browser console: info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+Browser console: log: [HMR] connected
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: log: [Fast Refresh] rebuilding
+No response elements found after timeout
+Special slug "test article with spaces" returned proper error: unknown
+Testing modified slug: "test-article-with-special-chars!@#"
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Browser console: info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+Browser console: log: [HMR] connected
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: log: [Fast Refresh] rebuilding
+No response elements found after timeout
+Special slug "test-article-with-special-chars!@#" returned proper error: unknown
+Testing modified slug: "TEST-ARTICLE-MIXED-CASE"
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Browser console: info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+Browser console: log: [HMR] connected
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: log: [Fast Refresh] rebuilding
+No response elements found after timeout
+Special slug "TEST-ARTICLE-MIXED-CASE" returned proper error: unknown
+Testing modified slug: "test--article--double--hyphens"
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Browser console: info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+Browser console: log: [HMR] connected
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Browser console: clear: console.clear
+Browser console: error: ./app/lib/mock-mongodb.ts:89:21
+Parsing ecmascript source code failed
+  87 |       },
+  88 |       create: async (data: any) => {
+> 89 |         console.log(\[Mock MongoDB] Creating \:\, data);
+     |                     ^
+  90 |         return { ...data, id: Date.now().toString() };
+  91 |       },
+  92 |       // Add more methods as needed
+
+Expected unicode escape
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export connectToDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export connectToDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/auth/[...nextauth]/route.ts:6:1
+Export default doesn't exist in target module
+  4 | import { compare } from "bcrypt";
+  5 | import { User } from "@/app/models/schema";
+> 6 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | export const authOptions: NextAuthOptions = {
+  9 |   providers: [
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/lib/mongodb.ts:4:1
+Export disconnectFromDatabase doesn't exist in target module
+  2 | // You can switch back to the real MongoDB connection by removing the .new extension
+  3 |
+> 4 | import { connectToDatabase as mockConnectToDatabase, disconnectFromDatabase as mockDisconnectFromDatabase } from './mock-mongodb';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import mongoose from 'mongoose';
+  6 |
+  7 | // Get MongoDB URI from environment variables with a fallback for local development
+
+The export disconnectFromDatabase was not found in module [project]/app/lib/mock-mongodb.ts [app-route] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: error: ./app/api/articles/[slug]/route.ts:3:1
+Export default doesn't exist in target module
+  1 | import { NextRequest, NextResponse } from "next/server";
+  2 | import { Article } from "@/app/models/schema";
+> 3 | import connectToDatabase from "@/app/lib/mongodb";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 | import { getServerSession } from "next-auth/next";
+  5 | import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+  6 |
+
+The export default was not found in module [project]/app/lib/mongodb.ts [app-route] (ecmascript).
+Did you mean to import disconnectFromDatabase?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Browser console: log: [Fast Refresh] rebuilding
+No response elements found after timeout
+Special slug "test--article--double--hyphens" returned proper error: unknown
+✅ PASSED: Special Character Slug Handling
+
+╔═══════════════════════════════════════════════╗
+║              TEST RESULTS SUMMARY             ║
+╚═══════════════════════════════════════════════╝
+
+✅ Passed: 1
+❌ Failed: 2
+
+Detailed Results:
+1. ❌ Find Articles from Homepage
+   Error: No article links found on homepage
+2. ❌ Slug Case Insensitivity
+   Error: No slugs found to test
+3. ✅ Special Character Slug Handling
+
+⚠️ 2 article slug tests failed. Review the issues above.

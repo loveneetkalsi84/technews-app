@@ -1,0 +1,61 @@
+Starting slug handling verification...
+
+╔════════════════════════════════════════════════════╗
+║       ARTICLE SLUG HANDLING VERIFICATION          ║
+╚════════════════════════════════════════════════════╝
+
+Starting verification at: 19/5/2025, 10:33:15 pm
+API URL: http://localhost:3000/api
+Log file: C:\xampp\htdocs\TechNews\technews-app\test-output\slug-handling-test.log
+
+Testing all slug variations...
+
+📋 Testing original slug: "getting-started-with-nextjs"
+🔍 Fetching article with slug: "getting-started-with-nextjs"
+❌ FAILED: Original Slug: "getting-started-with-nextjs": Original slug failed to fetch article. Cannot proceed with variations.
+   Details: [object Object]
+
+📋 Testing original slug: "CSS-Variables-Modern-Styling"
+🔍 Fetching article with slug: "CSS-Variables-Modern-Styling"
+❌ FAILED: Original Slug: "CSS-Variables-Modern-Styling": Original slug failed to fetch article. Cannot proceed with variations.
+   Details: [object Object]
+
+📋 Testing original slug: "special-characters-in-urls_a-technical-guide"
+🔍 Fetching article with slug: "special-characters-in-urls_a-technical-guide"
+❌ FAILED: Original Slug: "special-characters-in-urls_a-technical-guide": Original slug failed to fetch article. Cannot proceed with variations.
+   Details: [object Object]
+
+Testing invalid slug handling...
+🔍 Fetching article with slug: "non-existent-article"
+❌ FAILED: Invalid Slug: "non-existent-article": Expected 404/400 status but got 500
+   Details: [object Object]
+🔍 Fetching article with slug: "!@#$%^&*()-invalid"
+❌ FAILED: Invalid Slug: "!@#$%^&*()-invalid": Expected 404/400 status but got 500
+   Details: [object Object]
+🔍 Fetching article with slug: "<script>alert("xss")</script>"
+❌ FAILED: Invalid Slug: "<script>alert("xss")</script>": Expected 404/400 status but got 500
+   Details: [object Object]
+🔍 Fetching article with slug: "../../../etc/passwd"
+❌ FAILED: Invalid Slug: "../../../etc/passwd": Expected 404/400 status but got 500
+   Details: [object Object]
+🔍 Fetching article with slug: ""
+❌ FAILED: Invalid Slug: "": Expected 404/400 status but got 500
+   Details: [object Object]
+
+========== TEST SUMMARY ==========
+Total tests: 8
+Passed: 0
+Failed: 8
+=================================
+
+Failed tests:
+- Original Slug: "getting-started-with-nextjs": Original slug failed to fetch article. Cannot proceed with variations.
+- Original Slug: "CSS-Variables-Modern-Styling": Original slug failed to fetch article. Cannot proceed with variations.
+- Original Slug: "special-characters-in-urls_a-technical-guide": Original slug failed to fetch article. Cannot proceed with variations.
+- Invalid Slug: "non-existent-article": Expected 404/400 status but got 500
+- Invalid Slug: "!@#$%^&*()-invalid": Expected 404/400 status but got 500
+- Invalid Slug: "<script>alert("xss")</script>": Expected 404/400 status but got 500
+- Invalid Slug: "../../../etc/passwd": Expected 404/400 status but got 500
+- Invalid Slug: "": Expected 404/400 status but got 500
+
+Verification completed at: 19/5/2025, 10:33:18 pm

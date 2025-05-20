@@ -3,8 +3,8 @@
 ║  COMPREHENSIVE ARTICLE RENDERING VERIFICATION      ║
 ╚════════════════════════════════════════════════════╝
 
-Starting verification at: 19/5/2025, 10:33:11 pm
-Base URL: http://localhost:3000
+Starting verification at: 20/5/2025, 11:17:27 am
+Base URL: http://localhost:3002
 Screenshots folder: C:\xampp\htdocs\TechNews\technews-app\test-output\screenshots
 Log file: C:\xampp\htdocs\TechNews\technews-app\test-output\comprehensive-article-test.log
 
@@ -13,9 +13,9 @@ Browser launched successfully.
 
 
 🔍 Testing article with slug: "getting-started-with-nextjs"
-   Loading: http://localhost:3000/articles/getting-started-with-nextjs
-   📸 Screenshot saved: 1747674195056-error-getting-started-with-nextjs.png
-❌ FAILED: Article "getting-started-with-nextjs" - HTTP Status Check: Received status 500 instead of 200
+   Loading: http://localhost:3002/articles/getting-started-with-nextjs
+   📸 Screenshot saved: 1747720048930-no-title-getting-started-with-nextjs.png
+❌ FAILED: Article "getting-started-with-nextjs" - Title Check: Article title (h1) not found
 
 Browser closed.
 
@@ -26,7 +26,7 @@ Failed: 2
 =================================
 
 Failed tests:
-- Article "getting-started-with-nextjs" - HTTP Status Check: Received status 500 instead of 200
-  Screenshot: 1747674195056-error-getting-started-with-nextjs.png
+- Article "getting-started-with-nextjs" - Title Check: Article title (h1) not found
+  Screenshot: 1747720048930-no-title-getting-started-with-nextjs.png
 
-Verification completed at: 19/5/2025, 10:33:15 pm
+Verification completed at: 20/5/2025, 11:17:29 am

@@ -1,0 +1,64 @@
+
+╔════════════════════════════════════════════════════╗
+║       ARTICLE LINKS VERIFICATION (MOCK DB)         ║
+╚════════════════════════════════════════════════════╝
+
+Starting verification at: 20/5/2025, 11:18:32 am
+Base URL: http://localhost:3002
+Screenshots folder: C:\xampp\htdocs\TechNews\technews-app\test-output\screenshots
+Log file: C:\xampp\htdocs\TechNews\technews-app\test-output\mock-article-links-test.log
+
+Launching browser...
+Browser launched successfully.
+
+
+📋 Testing article links on homepage...
+Navigating to: http://localhost:3002
+Found 7 article links on homepage
+✅ PASSED: Homepage Article Links Detection
+   Details: [object Object]
+
+Testing article link: /articles/apple-unveils-new-macbook-pro-m3-chip
+   📸 Screenshot saved: 1747720115592-no-title-apple-unveils-new-macbook-pro-m3-chip.png
+❌ FAILED: Article Link: apple-unveils-new-macbook-pro-m3-chip: Article page does not have a title (h1)
+   Details: [object Object]
+
+Testing article link: /articles/apple-unveils-new-macbook-pro-m3-chip
+   📸 Screenshot saved: 1747720116739-no-title-apple-unveils-new-macbook-pro-m3-chip.png
+❌ FAILED: Article Link: apple-unveils-new-macbook-pro-m3-chip: Article page does not have a title (h1)
+   Details: [object Object]
+
+Testing article link: /articles/samsung-galaxy-s23-ultra-review
+   📸 Screenshot saved: 1747720117822-no-title-samsung-galaxy-s23-ultra-review.png
+❌ FAILED: Article Link: samsung-galaxy-s23-ultra-review: Article page does not have a title (h1)
+   Details: [object Object]
+
+Testing article link: /articles/nvidia-announces-rtx-5090
+   📸 Screenshot saved: 1747720118918-no-title-nvidia-announces-rtx-5090.png
+❌ FAILED: Article Link: nvidia-announces-rtx-5090: Article page does not have a title (h1)
+   Details: [object Object]
+
+Testing article link: /articles/openai-introduces-gpt5
+   📸 Screenshot saved: 1747720120028-no-title-openai-introduces-gpt5.png
+❌ FAILED: Article Link: openai-introduces-gpt5: Article page does not have a title (h1)
+   Details: [object Object]
+
+Testing article link: /articles/dell-xps-13-2025-review
+   📸 Screenshot saved: 1747720121113-no-title-dell-xps-13-2025-review.png
+❌ FAILED: Article Link: dell-xps-13-2025-review: Article page does not have a title (h1)
+   Details: [object Object]
+
+Testing article link: /articles/microsoft-announces-windows-12
+   📸 Screenshot saved: 1747720122246-no-title-microsoft-announces-windows-12.png
+❌ FAILED: Article Link: microsoft-announces-windows-12: Article page does not have a title (h1)
+   Details: [object Object]
+
+📋 Testing direct navigation to articles...
+
+Testing direct navigation to article: getting-started-with-nextjs
+Navigating to: http://localhost:3002/articles/getting-started-with-nextjs
+   📸 Screenshot saved: 1747720123527-direct-no-title-getting-started-with-nextjs.png
+❌ FAILED: Direct Navigation: getting-started-with-nextjs: Article page does not have a title (h1)
+   Details: [object Object]
+
+Browser closed.

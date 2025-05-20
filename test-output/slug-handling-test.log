@@ -4,8 +4,8 @@ Starting slug handling verification...
 ║       ARTICLE SLUG HANDLING VERIFICATION          ║
 ╚════════════════════════════════════════════════════╝
 
-Starting verification at: 19/5/2025, 10:33:15 pm
-API URL: http://localhost:3000/api
+Starting verification at: 20/5/2025, 11:17:29 am
+API URL: http://localhost:3002/api
 Log file: C:\xampp\htdocs\TechNews\technews-app\test-output\slug-handling-test.log
 
 Testing all slug variations...
@@ -33,19 +33,19 @@ Testing invalid slug handling...
 ❌ FAILED: Invalid Slug: "!@#$%^&*()-invalid": Expected 404/400 status but got 500
    Details: [object Object]
 🔍 Fetching article with slug: "<script>alert("xss")</script>"
-❌ FAILED: Invalid Slug: "<script>alert("xss")</script>": Expected 404/400 status but got 500
+✅ PASSED: Invalid Slug: "<script>alert("xss")</script>"
    Details: [object Object]
 🔍 Fetching article with slug: "../../../etc/passwd"
-❌ FAILED: Invalid Slug: "../../../etc/passwd": Expected 404/400 status but got 500
+✅ PASSED: Invalid Slug: "../../../etc/passwd"
    Details: [object Object]
 🔍 Fetching article with slug: ""
-❌ FAILED: Invalid Slug: "": Expected 404/400 status but got 500
+❌ FAILED: Invalid Slug: "": Expected 404/400 status but got 200
    Details: [object Object]
 
 ========== TEST SUMMARY ==========
 Total tests: 8
-Passed: 0
-Failed: 8
+Passed: 2
+Failed: 6
 =================================
 
 Failed tests:
@@ -54,8 +54,6 @@ Failed tests:
 - Original Slug: "special-characters-in-urls_a-technical-guide": Original slug failed to fetch article. Cannot proceed with variations.
 - Invalid Slug: "non-existent-article": Expected 404/400 status but got 500
 - Invalid Slug: "!@#$%^&*()-invalid": Expected 404/400 status but got 500
-- Invalid Slug: "<script>alert("xss")</script>": Expected 404/400 status but got 500
-- Invalid Slug: "../../../etc/passwd": Expected 404/400 status but got 500
-- Invalid Slug: "": Expected 404/400 status but got 500
+- Invalid Slug: "": Expected 404/400 status but got 200
 
-Verification completed at: 19/5/2025, 10:33:18 pm
+Verification completed at: 20/5/2025, 11:18:31 am

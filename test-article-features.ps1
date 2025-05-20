@@ -7,7 +7,7 @@ Write-Host "===============================================================`n" -
 
 # Configuration
 $config = @{
-    Port = 3000
+    Port = 3002
     UseMockDB = $true
 }
 

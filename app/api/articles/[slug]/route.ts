@@ -11,32 +11,35 @@ interface Params {
 }
 
 // GET single article by slug
-export async function GET(request: NextRequest, { params }: Params) {
-  try {
+export async function GET(request: NextRequest, { params }: Params) {  try {
     let { slug } = params;
     
     // Normalize the slug before searching (optional, but helps with consistency)
     const normalizedSlug = slug.toLowerCase().trim();
+    
+    // Only log and redirect if the slug is not normalized, but otherwise proceed with original slug
+    // This maintains URLs with camelCase or special characters while enabling case-insensitive lookups
     if (normalizedSlug !== slug) {
-      console.log(`API: Normalized slug from "${slug}" to "${normalizedSlug}"`);
-      slug = normalizedSlug;
+      console.log(`API: Processing non-normalized slug: "${slug}" vs normalized: "${normalizedSlug}"`);
     }
     
     console.log(`API: Fetching article with slug: ${slug}`);
     
     // Connect to the database
-    await connectToDatabase();    // Find the article first with exact case match, then with case-insensitive if needed
+    await connectToDatabase();// Find the article first with exact case match, then with case-insensitive if needed
     let article = await Article.findOne({ 
       slug: slug // Exact match first
     })
       .populate("author", "name image bio")
       .populate("category", "name slug");
-    
-    // If not found with exact match, try case-insensitive
+      // If not found with exact match, try case-insensitive
     if (!article) {
       console.log(`API: Article not found with exact match, trying case-insensitive for: "${slug}"`);
+      
+      // Use a more robust regex pattern that ignores case and handles special characters
+      const escapedSlug = slug.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
       article = await Article.findOne({ 
-        slug: new RegExp(`^${slug}$`, 'i') // Case-insensitive match
+        slug: new RegExp(`^${escapedSlug}$`, 'i') // Case-insensitive match with escaped special chars
       })
         .populate("author", "name image bio")
         .populate("category", "name slug");
@@ -66,20 +69,12 @@ export async function GET(request: NextRequest, { params }: Params) {
         { error: "Article not found", slug: slug },
         { status: 404 }
       );
-    }
-      // Double check that the slug matches exactly (case sensitive)
+    }    // Double check that the slug matches exactly (case sensitive)
     if (article.slug !== slug) {
-      console.error(`API: Slug mismatch: requested "${slug}" but found "${article.slug}"`);
-      console.error(`API: Article full data: ${JSON.stringify({
-        article_id: article._id,
-        article_slug: article.slug,
-        article_title: article.title,
-        requested_slug: slug
-      })}`);
-      return NextResponse.json(
-        { error: "Article slug mismatch", requested: slug, found: article.slug },
-        { status: 404 }
-      );
+      console.log(`API: Slug case mismatch: requested "${slug}" but found "${article.slug}"`);
+      console.log(`API: This is normal when URLs have different cases, returning article anyway`);
+      // We're returning the article anyway since we want case-insensitive matching
+      // But we log it for debugging purposes
     }
     
     // Increment view count
@@ -88,9 +83,23 @@ export async function GET(request: NextRequest, { params }: Params) {
     
     console.log(`API: Successfully returned article: ${article.title} (${article.slug})`);
     
-    return NextResponse.json(article);
-  } catch (error) {
+    return NextResponse.json(article);  } catch (error) {
     console.error(`Error fetching article with slug ${params.slug}:`, error);
+    
+    // Check if this is a connection error or other serious error
+    if (error instanceof Error) {
+      console.log(`API: Error type: ${error.name}, message: ${error.message}`);
+      
+      // If this is a mock database and the error is related to finding articles
+      if (process.env.USE_MOCK_DB === 'true' && error.message.includes('find')) {
+        console.log(`API: Using mock DB, returning 404 for article not found error`);
+        return NextResponse.json(
+          { error: "Article not found", slug: params.slug },
+          { status: 404 }
+        );
+      }
+    }
+    
     return NextResponse.json(
       { error: "Failed to fetch article" },
       { status: 500 }

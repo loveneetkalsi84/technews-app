@@ -35,12 +35,15 @@ export async function GET(request: NextRequest) {
       showAllFlag: showAll
     });
     
-    // Build the filter object
+  // Build the filter object
     const filter: ArticleFilter = {};
     
     // Only filter by isPublished if not explicitly showing all
     if (!showAll) {
       filter.isPublished = true;
+      console.log("Filtering for published articles only");
+    } else {
+      console.log("Showing all articles (published and unpublished)");
     }
     
     // Log the filter for debugging
@@ -64,9 +67,8 @@ export async function GET(request: NextRequest) {
     
     // Calculate pagination
     const skip = (page - 1) * limit;
-    
-    // Execute query with pagination - handle potential errors
-    let articles = [];
+      // Execute query with pagination - handle potential errors
+    let articles: any[] = [];
     let total = 0;
     
     try {

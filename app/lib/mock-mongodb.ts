@@ -196,37 +196,129 @@ const mockMongoose = {
     return {      find: async (query: any = {}) => {
         const collection = mockCollections[modelName.toLowerCase()] || [];
         
+        // Enhanced logging with query type info
+        console.log(`[Mock MongoDB] Finding ${modelName} with query:`, JSON.stringify(query), 
+                   'Types:', Object.entries(query).map(([k, v]) => `${k}:${typeof v}`).join(', '));
+        
         // Filter the collection based on the query
         if (Object.keys(query).length === 0) {
+          console.log(`[Mock MongoDB] Returning all ${collection.length} items from ${modelName}`);
           return collection;
         }
         
-        return collection.filter((item: any) => 
+        const results = collection.filter((item: any) => 
           Object.keys(query).every(key => {
+            // Skip undefined or null values
+            if (query[key] === undefined || query[key] === null) {
+              return true;
+            }
+            
             // Handle regex queries (for case-insensitive searches)
             if (query[key] instanceof RegExp) {
               return query[key].test(item[key]);
             }
+            
+            // Enhanced boolean handling for isPublished and other boolean fields
+            if (typeof query[key] === 'boolean' || query[key] === 'true' || query[key] === 'false') {
+              const boolValue = typeof query[key] === 'boolean' ? query[key] : query[key] === 'true';
+              const itemBoolValue = typeof item[key] === 'boolean' ? item[key] : item[key] === 'true';
+              console.log(`[Mock MongoDB] Boolean comparison for ${key}: query=${boolValue}, item=${itemBoolValue}`);
+              return itemBoolValue === boolValue;
+            }
+            
+            // Handle basic equality
             return item[key] === query[key];
           })
         );
-      },
-      findOne: async (query: any) => {
+        
+        console.log(`[Mock MongoDB] Filtered query returned ${results.length} items:`, 
+                   results.length > 0 ? results.slice(0, 2).map((r: any) => ({ id: r.id, title: r.title || '-', isPublished: r.isPublished })) : 'none');
+        return results;
+      },      findOne: async (query: any) => {
         const collection = mockCollections[modelName.toLowerCase()] || [];
-        return collection.find((item: any) => 
+        
+        console.log(`[Mock MongoDB] Finding one ${modelName} with query:`, JSON.stringify(query),
+                    'Types:', Object.entries(query).map(([k, v]) => `${k}:${typeof v}`).join(', '));
+        
+        const result = collection.find((item: any) => 
           Object.keys(query).every(key => {
+            // Skip undefined or null values
+            if (query[key] === undefined || query[key] === null) {
+              return true;
+            }
+            
             // Handle regex queries (for case-insensitive searches)
             if (query[key] instanceof RegExp) {
               return query[key].test(item[key]);
             }
+            
+            // Enhanced boolean handling for isPublished and other boolean fields
+            if (typeof query[key] === 'boolean' || query[key] === 'true' || query[key] === 'false') {
+              const boolValue = typeof query[key] === 'boolean' ? query[key] : query[key] === 'true';
+              const itemBoolValue = typeof item[key] === 'boolean' ? item[key] : item[key] === 'true';
+              console.log(`[Mock MongoDB] Boolean comparison for ${key}: query=${boolValue}, item=${itemBoolValue}`);
+              return itemBoolValue === boolValue;
+            }
+            
+            // Case-insensitive matching for slug lookups
+            if (key === 'slug' && typeof query[key] === 'string' && typeof item[key] === 'string') {
+              const match = item[key].toLowerCase() === query[key].toLowerCase();
+              if (match) {
+                console.log(`[Mock MongoDB] Slug match found: ${item[key]} (case-insensitive)`);
+              }
+              return match;
+            }
+            
             return item[key] === query[key];
           })
-        ) || null;
+        );
+        
+        if (result) {
+          console.log(`[Mock MongoDB] Found ${modelName} with ID: ${result.id}`);
+        } else {
+          console.log(`[Mock MongoDB] No ${modelName} found for query`);
+        }
+        
+        return result || null;
       },      create: async (data: any) => {
-        console.log('[Mock MongoDB] Creating:', data);
-        const newId = Date.now().toString();
-        const newItem = { ...data, id: newId };
-        mockCollections[modelName.toLowerCase()].push(newItem);
+        console.log('[Mock MongoDB] Creating:', JSON.stringify(data, null, 2));
+        
+        // Generate a new ID (either use provided _id or generate a new id)
+        const newId = data._id?.toString() || Date.now().toString();
+        
+        // Ensure the data has all the required fields in the correct format
+        const newItem = { 
+          ...data, 
+          id: newId,
+          // Initialize timestamps if not provided
+          createdAt: data.createdAt || new Date().toISOString(),
+          updatedAt: data.updatedAt || new Date().toISOString()
+        };
+        
+        // Ensure proper type conversion for boolean fields
+        if ('isPublished' in newItem) {
+          newItem.isPublished = Boolean(newItem.isPublished);
+          console.log(`[Mock MongoDB] Setting isPublished to ${newItem.isPublished} (original value: ${data.isPublished})`);
+        }
+        
+        // Convert any complex objects to their proper format
+        if (newItem.tags) {
+          if (typeof newItem.tags === 'string') {
+            newItem.tags = newItem.tags.split(',').map((tag: string) => tag.trim());
+          } else if (!Array.isArray(newItem.tags)) {
+            newItem.tags = [];
+          }
+        } else {
+          newItem.tags = [];
+        }
+        
+        // Add to collection
+        const collection = mockCollections[modelName.toLowerCase()];
+        collection.push(newItem);
+        
+        console.log(`[Mock MongoDB] Created new ${modelName} with ID: ${newId}`);
+        console.log(`[Mock MongoDB] Collection now has ${collection.length} items`);
+        
         return newItem;
       },
       findById: async (id: string) => {

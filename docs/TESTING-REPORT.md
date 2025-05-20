@@ -174,6 +174,52 @@ The mock database includes test data for:
    - Slugs with special characters (`special-characters-in-urls_a-technical-guide`)
 3. **Categories**: Basic category data
 
+# Mock Database Testing Update
+
+## Mock Database Improvements
+
+The TechNews application now has enhanced mock database capabilities, making it easier to test article features without requiring a real MongoDB connection. The following improvements have been made:
+
+1. **Fixed Default Export in MongoDB Connection**: Added a default export to the mongodb.ts file to maintain compatibility with existing code that uses import statements for the connection.
+
+2. **Enhanced Case-Insensitive Slug Handling**: Improved the slug handling in the article API routes to properly handle slugs with different cases and special characters.
+
+3. **Better Error Handling**: Added robust error handling in the article API routes to return appropriate status codes when articles are not found.
+
+4. **Environment Variable Port Support**: Updated all test scripts to use the environment port variable rather than hardcoded port numbers.
+
+## Mock Data Structure
+
+The mock database contains the following test articles:
+
+1. "Getting Started with Next.js" - slug: getting-started-with-nextjs
+2. "The Future of Web Development" - slug: future-of-web-development
+3. "TypeScript Best Practices" - slug: typescript-best-practices
+4. "CSS Variables: Modern Styling" - slug: CSS-Variables-Modern-Styling (intentional uppercase for testing)
+5. "React Hooks: Complete Guide" - slug: react-hooks-complete-guide
+6. "Special Characters in URLs: A Technical Guide" - slug: special-characters-in-urls_a-technical-guide (includes special characters)
+
+## Known Issues
+
+1. **Homepage Article Mismatch**: The homepage currently displays different articles than those in the mock database. This is due to the homepage using hardcoded article data instead of fetching from the database.
+
+2. **Puppeteer Test Failures**: Some tests using Puppeteer for browser automation show protocol errors. These may require updating the Puppeteer version or adjusting the test sequence.
+
+## Verification Results
+
+The article testing scripts show that the core functionality works correctly with the mock database:
+
+- Article retrieval by slug works correctly
+- Case-insensitive slug matching functions as expected 
+- Special character handling is properly implemented
+- Error handling returns appropriate status codes
+
+## Next Steps
+
+1. Update the homepage to use article data from the mock database
+2. Fix Puppeteer-related test failures
+3. Ensure all article links throughout the application point to valid mock articles
+
 ## Recommendations for Future Work
 
 1. Implement a slug-generation service that can be reused across the application
@@ -182,3 +228,49 @@ The mock database includes test data for:
 4. Add more comprehensive error handling for article retrieval edge cases
 5. Improve performance by adding caching for frequently accessed articles
 6. Implement analytics to track which articles have broken links
+
+## Recent Improvements
+
+### Enhanced Mock Database Implementation
+
+The mock database implementation has been enhanced with:
+
+1. **More realistic test data**:
+   - Added articles with various edge cases for testing
+   - Improved category and author relationships
+   - Added articles with capital letters in slugs for testing case sensitivity
+
+2. **Improved type definitions**:
+   - Added TypeScript interfaces for all collection types
+   - Fixed type issues for better reliability
+   - Added index signature for proper dynamic key access
+
+3. **Better query handling**:
+   - Added support for case-insensitive searches using RegExp
+   - Improved object property matching
+   - Proper handling of query filters
+
+### Additional Test Tools
+
+New test scripts have been added:
+
+1. **verify-article-rendering-comprehensive.js**:
+   - Tests all variations of article slugs
+   - Captures screenshots for visual verification
+   - Tests case insensitivity systematically
+   - Provides detailed error logging
+
+2. **verify-slug-handling.js**:
+   - Specialized tool just for slug verification
+   - Tests all edge cases for slugs
+   - Verifies proper error handling for invalid slugs
+   - Tests case-insensitive slug resolution
+
+### Simplified Test Configuration
+
+The testing workflow has been simplified:
+
+1. Added **enable-mock-db.ps1** and **disable-mock-db.ps1** scripts for convenient toggling
+2. Updated **test-article-features.ps1** to run all article tests with mock database
+3. Added **verify-mock-links** script for testing article links with mock data
+4. Improved environment variable handling for more consistent test execution

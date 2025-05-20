@@ -29,6 +29,50 @@ tests/
 - `verify-article-links.js` - Tests article links specifically
 - `verify-article-links-mock.js` - Tests article links with mock database
 
+## Mock Database
+
+TechNews includes a mock database implementation that allows testing without requiring a real MongoDB connection.
+
+### Enabling the Mock Database
+
+To enable the mock database:
+
+```powershell
+# Run the enable-mock-db.ps1 script
+./enable-mock-db.ps1
+```
+
+Or manually set the environment variable:
+
+```powershell
+$env:USE_MOCK_DB = "true"
+```
+
+### Mock Data Contents
+
+The mock database includes test articles with the following slugs:
+
+- `getting-started-with-nextjs`
+- `future-of-web-development`
+- `typescript-best-practices`
+- `CSS-Variables-Modern-Styling` (note: capitalization intentional for testing)
+- `react-hooks-complete-guide`
+- `special-characters-in-urls_a-technical-guide` (includes special characters)
+
+These articles cover various edge cases for testing slug handling, case sensitivity, and special character handling.
+
+### Testing with Mock Database
+
+To test article features with the mock database:
+
+```powershell
+# Enable mock database first
+./enable-mock-db.ps1
+
+# Run the article tests with mock database
+./test-article-features.ps1
+```
+
 ## Running Tests
 
 ### Using the Test Runner

@@ -7,8 +7,8 @@ const path = require('path');
 
 // Configuration
 const CONFIG = {
-  port: 3002,
-  baseUrl: 'http://localhost:3002',
+  port: process.env.PORT || 3001,
+  baseUrl: `http://localhost:${process.env.PORT || 3001}`,
   screenshotDir: path.join(__dirname, '../../test-output/screenshots'),
   logFilePath: path.join(__dirname, '../../test-output/quick-slug-test.log')
 };

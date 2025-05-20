@@ -120,9 +120,8 @@ const Header = () => {
               >
                 <FiUser />
               </Link>
-            ) : (
-              <Link
-                href="/auth/signin"
+            ) : (              <Link
+                href="/login"
                 className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-medium"
               >
                 Sign In

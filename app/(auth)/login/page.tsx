@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -19,12 +19,22 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-export default function LoginPage() {
-  const router = useRouter();
+export default function LoginPage() {  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const errorMessage = searchParams.get("error");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  
+  // Show error message from URL if present
+  useEffect(() => {
+    if (errorMessage) {
+      const error = errorMessage === "CredentialsSignin" 
+        ? "Invalid email or password" 
+        : decodeURIComponent(errorMessage);
+      toast.error(error);
+    }
+  }, [errorMessage]);
 
   // Initialize react-hook-form with zod validation
   const {
